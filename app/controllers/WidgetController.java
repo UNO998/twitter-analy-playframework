@@ -70,19 +70,31 @@ public class WidgetController extends Controller {
      */
     public CompletionStage<Result> search() {
         final Form<WidgetData> boundForm = form.bindFromRequest();
-        WidgetData data = boundForm.get();
+		
+		try{
+			final WidgetData data = boundForm.get();
 
-        tweets = twitter.thenApply(
-                (Connection conn) -> conn.SearchPost(data.getKeyword(), 10)
-        );
+			tweets = twitter.thenApply(
+        	        (Connection conn) -> conn.SearchPost(data.getKeyword(), 10)
+        	);
 
-        //Logger message
-        //play.Logger.ALogger logger = play.Logger.of(getClass());
-        //logger.error(data.getKeyword());
-        //logger.error(String.valueOf(twitter==null));
-        //flash("info", "Widget Search!");
+        	//Logger message
+        	//play.Logger.ALogger logger = play.Logger.of(getClass());
+        	//logger.error(data.getKeyword());
+        	//logger.error(String.valueOf(twitter==null));
+        	//flash("info", "Widget Search!");
 
-        return CompletableFuture.completedFuture(redirect(routes.WidgetController.index()));
+        	return CompletableFuture.completedFuture(redirect(routes.WidgetController.index()));
+		}catch(Exception ex){
+			// catch exception if the form is empty
+			play.Logger.ALogger logger = play.Logger.of(getClass());
+        	logger.error("missing input");
+
+			return tweets.thenApplyAsync(results -> 
+				ok(views.html.index.render(form, asScala(results))), httpExecutionContext.current()
+			);
+		}
+
     }
 
     /**
