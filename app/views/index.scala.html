@@ -5,32 +5,39 @@
 
 @main("Search Form") {
 
-    <h1>Search form</h1>
-    @helper.form(routes.WidgetController.search) {
-        @helper.CSRF.formField
+    <head>
+        <script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>
+    </head>
 
-        @helper.inputText(searchForm("keyword"))
+    <body>
+        <h1>Search form</h1>
+        @helper.form(routes.HomeController.search) {
+            @helper.CSRF.formField
 
-        <button type="submit">Search</button>
-    }
+            @helper.inputText(searchForm("keyword"))
 
-
-    <table>
-        <thead>
-        <tr><th>Name</th>
-            <th>Tweet</th>
-            <th>Link</th>
-        </thead>
-        <tbody>
-        @for(w <- tweets) {
-        <tr>
-            <td>@w.getUser_name()</td>
-            <td>@w.getText()</td>
-            <td>
-                <a href="@routes.WidgetController.userProfile(w.getUser_id())">@w.getUser_link()</a>
-            </td>
-        </tr>
+            <button type="submit">Search</button>
         }
-        </tbody>
-    </table>
+
+
+        <table>
+            <thead>
+            <tr><th>Name</th>
+                <th>Tweet</th>
+                <th>Link</th>
+            </thead>
+            <tbody>
+            @for(w <- tweets) {
+            <tr>
+                <td>@w.getUser_name()</td>
+                <td>@w.getText()</td>
+                <td>
+          
+                </td>
+            </tr>
+            }
+            </tbody>
+        </table>
+
+    </body>
 }

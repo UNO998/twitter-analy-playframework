@@ -6,7 +6,7 @@ import lyc.Item;
 
 import static java.util.Objects.requireNonNull;
 
-public final class Messages {
+public final class Message {
 
     public static final class Register{
 

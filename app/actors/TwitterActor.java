@@ -3,8 +3,11 @@ package actors;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
@@ -16,7 +19,7 @@ import lyc.*;
 
 public class TwitterActor extends AbstractActorWithTimers{
 	private final CompletableFuture<Connection> twitter;
-	private final Set<UserACtor> userActors;
+	private final Set<ActorRef> userActors;
 	private final List<Item> history;
 	private final List<Item> update;
 
@@ -30,9 +33,15 @@ public class TwitterActor extends AbstractActorWithTimers{
 	public TwitterActor(){
 		userActors = new HashSet<>();
 		history = new ArrayList<>();
-		update = new ArrayList<>()
+		update = new ArrayList<>();
 		keyword = new String[]{null};
 
+		String []auths = new String[]{
+                "WUZeAUiJyJFySY2I5C7oTkaRB",
+                "QcmbvjQrSxLscxtZP6PndCYVEXxgBOoZ5g8ryvJLBYAmDTtrPx",
+                "2965074672-HcndnMSZkdDKNqF1vqoERR1nynKLnKKqhMovkw4",
+                "mue5UQ1QWSwGWDgf1lDTnrSeLJFVJLZltQxdyL34u0C0a"
+        };
 		AccountFactory factory = new TwitterAccountFactory();
         this.twitter = CompletableFuture.supplyAsync( () -> factory.createAccount(auths) );
 	}
@@ -44,7 +53,7 @@ public class TwitterActor extends AbstractActorWithTimers{
      */
 	@Override
     public void preStart(){
-        getTimers().startPeriodicTimer("Timer", new Tick(), Duration.create(5, TimeUnit.SECONDS));
+        getTimers().startPeriodicTimer("Timer", new Message.Tick(), Duration.create(5, TimeUnit.SECONDS));
     }
 
 
@@ -71,8 +80,10 @@ public class TwitterActor extends AbstractActorWithTimers{
 			.match(Message.Keyword.class, msg -> {
 				String k = msg.getKeyword();
 				keyword[0] = k;		// !! notice: may have multi-thread bugs here
-				CompletableFuture<List<Item>> futureItems = twitter.thenAppy( 
+				CompletableFuture<List<Item>> futureItems = twitter.thenApply( 
 					connection -> connection.SearchPost(k, limit) );
+
+				// TODO: change message to CompletableStage type
 				sender().tell(futureItems.get(), self());
 			})
 			.match(Message.Tick.class, msg -> notifyUsers())
@@ -88,13 +99,12 @@ public class TwitterActor extends AbstractActorWithTimers{
 		if(keyword[0] == null)
 			return;
 
-		CompletableFuture<List<Item>> tweets = twitter.thenAppy(
-			(Connection conn) -> conn.SearchPost(keyword[0], limit);
-		);
-		tweets.thenAppy(tweets -> {
-			List<Item> diff = getUpdate(tweets, history);
+		CompletableFuture<List<Item>> tweets = twitter.thenApply(
+			(Connection conn) -> conn.SearchPost(keyword[0], limit));
+		CompletableFuture<List<Item>> newTweets = tweets.thenApply(now -> {
+			List<Item> diff = getUpdate(now, history);
 			history.clear();
-			history.addAll(tweets);
+			history.addAll(now);
 			update.clear();
 			update.addAll(diff);
 
@@ -102,7 +112,27 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 		});
 
-		userActors.foreach( user -> user.tell(new Message.Update(diff), self()) );
+		// ---------------- debug message ----------------------
+		play.Logger.ALogger logger = play.Logger.of(getClass());
+        logger.error("5 seconds...........");
+        newTweets.thenAccept(now -> {
+        	now.forEach( 
+        		each -> logger.error(each.getText()) 
+        	);
+        });
+        //------------------------------------------------------
+
+		userActors.forEach( user -> {
+			try{
+				// TODO: change message to CompletableStage type
+				user.tell(new Message.Update(newTweets.get()), self());
+			} catch(Exception e){
+				return;
+			}		
+		});
+
+
+		
 	}
 
 
@@ -112,7 +142,7 @@ public class TwitterActor extends AbstractActorWithTimers{
      */
 	private List<Item> getUpdate(List<Item> now, List<Item> history){
 		// TODO
-		return List<Item>({now[0]});
+		return now;
 	}
 
 

@@ -8,18 +8,25 @@ import play.libs.streams.ActorFlow;
 import play.mvc.*;
 import play.libs.concurrent.HttpExecutionContext;
 import play.data.FormFactory;
+import play.data.Form;
+import static play.libs.Scala.asScala;
 
 import views.html.*;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import akka.util.Timeout;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.List;
+import java.util.ArrayList;
 
 import lyc.Item;
 import actors.TwitterActor;
 import actors.UserActor;
 import actors.Message;
 
-
+@Singleton
 public class HomeController extends Controller{
 
 	@Inject private ActorSystem actorSystem;
@@ -27,7 +34,7 @@ public class HomeController extends Controller{
 	@Inject private HttpExecutionContext httpExecutionContext;
 	private final Timeout timeout = new Timeout(2, TimeUnit.SECONDS);
 
-	private ActorRef TwitterActor;
+	private ActorRef twitterActor;
 	private final Form<WidgetData> form;
 	private CompletableFuture<List<Item>> tweets;
 	
@@ -35,7 +42,7 @@ public class HomeController extends Controller{
 	@Inject public HomeController(ActorSystem system, FormFactory formFactory){
 		//twitterActor = system.actorOf(TwitterActor.getProps(), "TimeActor");
 		// the path of twitterActor is "/user/twitterActor"
-		twitterActor = actorSystem.actorOf(TwitterActor.getProps(), "twitterActor");
+		twitterActor = system.actorOf(TwitterActor.getProps(), "twitterActor");
 		form = formFactory.form(WidgetData.class);
 
 		// initialization
@@ -67,10 +74,11 @@ public class HomeController extends Controller{
 			Message.Keyword keyword = new Message.Keyword( data.getKeyword() );
 
 			// throw an AskTimeoutException exception if timeout
-			tweets = ask(twitterActor, keyword, timeout)
-				.thenApply(object -> (List<Item>) object);
+			CompletionStage<Object> result = ask(twitterActor, keyword, timeout);
+			tweets = result.thenApply(objects -> (List<Item>)(List<?>) objects).toCompletableFuture();
 
-        	return CompletableFuture.completedFuture(redirect(routes.WidgetController.index()));
+
+        	return CompletableFuture.completedFuture(redirect(routes.HomeController.index()));
 		}catch(Exception ex){
 			// catch exception if the form is empty
 			play.Logger.ALogger logger = play.Logger.of(getClass());
@@ -85,7 +93,7 @@ public class HomeController extends Controller{
 
     public WebSocket createWebSocket(){
     	return WebSocket.Json.accept(request -> 
-    		ActorFlow.actorRef(UserActor::props, actorSystem, materializer))
+    		ActorFlow.actorRef(UserActor::props, actorSystem, materializer));
     }
 
 }

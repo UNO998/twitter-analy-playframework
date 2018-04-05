@@ -4,11 +4,18 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import play.libs.Json;
-import play.libs.oauth.OAuth;
-import play.libs.ws.WSClient;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+
+import lyc.*;
 
 
 public class UserActor extends AbstractActor{
@@ -48,8 +55,9 @@ public class UserActor extends AbstractActor{
      */
 	@Override
 	public Receive createReceive(){
-		receiveBuilder()
-			.match(Message.Update.class, msg -> sendUpdate(msg));
+		return receiveBuilder()
+			.match(Message.Update.class, msg -> sendUpdate(msg))
+			.build();
 	}
 
 
@@ -65,9 +73,9 @@ public class UserActor extends AbstractActor{
 		ArrayNode arrayNode = reponse.putArray("Tweets");
 
 		for(Item tweet : newItems){
-			object = arrayNode.addObject();
+			ObjectNode object = arrayNode.addObject();
 			object.put("user_name", tweet.getUser_name());
-			object.put("text", tweet,getText());
+			object.put("text", tweet.getText());
 			object.put("href", tweet.getUser_link());
 		}
 
