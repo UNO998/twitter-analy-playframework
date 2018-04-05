@@ -1,0 +1,13 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.WidgetController.index
+GET     /userProfile/:userId        controllers.WidgetController.userProfile(userId: Long)
+
+# Widgets
+POST    /widgets                    controllers.WidgetController.search
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
