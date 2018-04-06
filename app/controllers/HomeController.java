@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import lyc.Item;
+import lyc.SearchResult;
 import actors.TwitterActor;
 import actors.UserActor;
 import actors.Message;
@@ -36,7 +37,9 @@ public class HomeController extends Controller{
 
 	private ActorRef twitterActor;
 	private final Form<WidgetData> form;
-	private CompletableFuture<List<Item>> tweets;
+	private CompletableFuture<List<SearchResult>> tweets;
+
+	play.Logger.ALogger logger = play.Logger.of(getClass());
 	
 
 	@Inject public HomeController(ActorSystem system, FormFactory formFactory){
@@ -46,14 +49,14 @@ public class HomeController extends Controller{
 		form = formFactory.form(WidgetData.class);
 
 		// initialization
-		this.tweets = CompletableFuture.supplyAsync(() -> new ArrayList<Item>());   
+		this.tweets = CompletableFuture.supplyAsync(() -> new ArrayList<SearchResult>());   
 	} 
 
 
 
 	public CompletionStage<Result> index() {
         return tweets.thenApplyAsync(results -> 
-            ok(views.html.index.render(form, asScala(results))), httpExecutionContext.current()
+            ok(views.html.index.render(request() ,form, asScala(results))), httpExecutionContext.current()
             );
     }
 
@@ -75,8 +78,15 @@ public class HomeController extends Controller{
 
 			// throw an AskTimeoutException exception if timeout
 			CompletionStage<Object> result = ask(twitterActor, keyword, timeout);
-			tweets = result.thenApply(objects -> (List<Item>)(List<?>) objects).toCompletableFuture();
-
+			CompletableFuture<CompletableFuture<List<SearchResult>>> tmp = result
+				.thenApply(objects -> (CompletableFuture<List<SearchResult>>) objects)
+				.toCompletableFuture();
+			
+			CompletableFuture<List<SearchResult>> newSearchResult = tmp.get();
+			tweets = newSearchResult.thenCombine(tweets, (op1, op2) -> {
+				op1.addAll(op2);
+				return op1;
+			});
 
         	return CompletableFuture.completedFuture(redirect(routes.HomeController.index()));
 		}catch(Exception ex){
@@ -85,13 +95,13 @@ public class HomeController extends Controller{
         	logger.error("missing input");
 
 			return tweets.thenApplyAsync(results -> 
-				ok(views.html.index.render(form, asScala(results))), httpExecutionContext.current()
+				ok(views.html.index.render(request(), form, asScala(results))), httpExecutionContext.current()
 			);
 		}
 
     }
 
-    public WebSocket createWebSocket(){
+    public WebSocket ws(){
     	return WebSocket.Json.accept(request -> 
     		ActorFlow.actorRef(UserActor::props, actorSystem, materializer));
     }

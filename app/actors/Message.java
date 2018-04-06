@@ -3,8 +3,11 @@ package actors;
 
 import java.util.List;
 import lyc.Item;
+import lyc.SearchResult;
 
 import static java.util.Objects.requireNonNull;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 public final class Message {
 
@@ -47,13 +50,13 @@ public final class Message {
 
 
     public static class Update {
-        final private List<Item> tweets;
+        final private CompletableFuture<List<SearchResult>> tweets;
 
         /**
          * 
          * @param
          */
-        public Update(List<Item> tweets){
+        public Update(CompletableFuture<List<SearchResult>> tweets){
             this.tweets = requireNonNull(tweets);
         }
 
@@ -62,7 +65,7 @@ public final class Message {
          * 
          * @param
          */
-        public List<Item> getTweets(){
+        public CompletableFuture<List<SearchResult>> getTweets(){
             return this.tweets;
         }
     }

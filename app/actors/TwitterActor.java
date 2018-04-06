@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -20,11 +21,12 @@ import lyc.*;
 public class TwitterActor extends AbstractActorWithTimers{
 	private final CompletableFuture<Connection> twitter;
 	private final Set<ActorRef> userActors;
-	private final List<Item> history;
-	private final List<Item> update;
 
-	private final String[] keyword;
+	private final HashSet<String> keywords;
+	private final HashMap<String, List<Item>> history;
 	private final int limit = 10;
+
+	play.Logger.ALogger logger = play.Logger.of(getClass());
 
 	/**
      * 
@@ -32,9 +34,8 @@ public class TwitterActor extends AbstractActorWithTimers{
      */
 	public TwitterActor(){
 		userActors = new HashSet<>();
-		history = new ArrayList<>();
-		update = new ArrayList<>();
-		keyword = new String[]{null};
+		keywords = new HashSet<>();
+		history = new HashMap<>();
 
 		String []auths = new String[]{
                 "WUZeAUiJyJFySY2I5C7oTkaRB",
@@ -73,18 +74,22 @@ public class TwitterActor extends AbstractActorWithTimers{
 	@Override
 	public Receive createReceive(){
 		return receiveBuilder()
-			.match(Message.Register.class, msg -> userActors.add(sender()))
-
-			// TODO: cannot modify keyword in lambda
-			// need to return a List<Item>
+			.match(Message.Register.class, msg -> {userActors.add(sender()); })
 			.match(Message.Keyword.class, msg -> {
-				String k = msg.getKeyword();
-				keyword[0] = k;		// !! notice: may have multi-thread bugs here
-				CompletableFuture<List<Item>> futureItems = twitter.thenApply( 
-					connection -> connection.SearchPost(k, limit) );
+				CompletableFuture<List<SearchResult>> futureItems = twitter.thenApply( connection ->{
+					List<SearchResult> newTweets = new ArrayList<SearchResult>();
 
-				// TODO: change message to CompletableStage type
-				sender().tell(futureItems.get(), self());
+					String key = msg.getKeyword();
+					List<Item> tweets = connection.SearchPost(key, limit);
+
+					keywords.add(key);
+					history.put(key, tweets);
+					newTweets.add(new SearchResult(key, tweets));
+
+					return newTweets;
+				});
+
+				sender().tell(futureItems, self());
 			})
 			.match(Message.Tick.class, msg -> notifyUsers())
 			.build();
@@ -96,43 +101,45 @@ public class TwitterActor extends AbstractActorWithTimers{
      * @param
      */
 	private void notifyUsers(){
-		if(keyword[0] == null)
-			return;
+		
+		CompletableFuture<List<SearchResult>> updateTweets = CompletableFuture.supplyAsync( () -> {
+				List<SearchResult> return_val = new ArrayList<SearchResult>();
 
-		CompletableFuture<List<Item>> tweets = twitter.thenApply(
-			(Connection conn) -> conn.SearchPost(keyword[0], limit));
-		CompletableFuture<List<Item>> newTweets = tweets.thenApply(now -> {
-			List<Item> diff = getUpdate(now, history);
-			history.clear();
-			history.addAll(now);
-			update.clear();
-			update.addAll(diff);
 
-			return diff;
+				logger.error("HashSet size: " + userActors.size());
+				for(String each : keywords){
+					twitter
+						.thenApply( conn -> conn.SearchPost(each, limit))
+						.thenAccept(items -> {
+							List<Item> now = items;
+							List<Item> before = history.get(each);
 
-		});
+							List<Item> diff = getUpdate(now, before);
 
-		// ---------------- debug message ----------------------
-		play.Logger.ALogger logger = play.Logger.of(getClass());
-        logger.error("5 seconds...........");
-        newTweets.thenAccept(now -> {
-        	now.forEach( 
-        		each -> logger.error(each.getText()) 
-        	);
-        });
-        //------------------------------------------------------
+							history.put(each, now);
 
-		userActors.forEach( user -> {
+							return_val.add(new SearchResult(each, diff));
+
+							// ---------------- debug message ----------------------
+							/**
+					        logger.error("5 seconds...........");
+					        logger.error("Keyword: " + each);
+					        items.forEach( item -> logger.error(item.getText()) );
+					        **/
+					        //------------------------------------------------------
+						});
+				}
+				return return_val;
+			});
+
+
+		for(ActorRef user : userActors){
 			try{
-				// TODO: change message to CompletableStage type
-				user.tell(new Message.Update(newTweets.get()), self());
+				user.tell(new Message.Update(updateTweets), self());
 			} catch(Exception e){
 				return;
-			}		
-		});
-
-
-		
+			}	
+		}		
 	}
 
 

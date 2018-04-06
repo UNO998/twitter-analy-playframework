@@ -1,15 +1,16 @@
-@(searchForm: Form[WidgetData], tweets: Seq[lyc.Item])
+@(request: play.mvc.Http.Request, searchForm: Form[WidgetData], tweets: Seq[lyc.SearchResult])
 
 
 @import helper._
 
-@main("Search Form") {
+<html>
 
     <head>
+        <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
         <script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>
     </head>
 
-    <body>
+    <body data-ws-url="@routes.HomeController.ws.webSocketURL(request)">
         <h1>Search form</h1>
         @helper.form(routes.HomeController.search) {
             @helper.CSRF.formField
@@ -19,25 +20,34 @@
             <button type="submit">Search</button>
         }
 
+        @for(each <- tweets) {
+            <div>
+                <h2>Keyword: @each.getKeyword() </h2>
+                <table>
+                    <thead>
+                    <tr><th>Name</th>
+                        <th>Tweet</th>
+                        <th>Link</th>
+                        <th>Time</th>
+                    </thead>
+                    <tbody>
+                    @for(w <- each.getTweets()) {
+                        <tr>
+                            <td>@w.getUser_name()</td>
+                            <td>@w.getText()</td>
+                            <td>
+                                <a>@w.getUser_link()</a>
+                            </td>
+                            <td>
+                                @w.getCreated_time()
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
 
-        <table>
-            <thead>
-            <tr><th>Name</th>
-                <th>Tweet</th>
-                <th>Link</th>
-            </thead>
-            <tbody>
-            @for(w <- tweets) {
-            <tr>
-                <td>@w.getUser_name()</td>
-                <td>@w.getText()</td>
-                <td>
-          
-                </td>
-            </tr>
-            }
-            </tbody>
-        </table>
-
+                <hr>
+            </div>
+        }
     </body>
-}
+</html>

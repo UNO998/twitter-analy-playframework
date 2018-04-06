@@ -49,7 +49,7 @@ public class TwitConnection implements Connection {
             int i = 0;
             for (Status status : statuses) {
                 UserBase user = TwitUserFactory.getInstance().getOrCreateUser(status.getUser().getId(), status.getUser().getName(), status.getUser().getScreenName());
-                Item result = new Item(user, status.getText());
+                Item result = new Item(user, status.getText(), status.getCreatedAt());
 
                 results.add(result);
                 if (++i == max_cnt)
@@ -71,7 +71,7 @@ public class TwitConnection implements Connection {
             List<Status> statues = twitter.getHomeTimeline();
             for (Status status : statues) {
                 UserBase user = TwitUserFactory.getInstance().getOrCreateUser(status.getUser().getId(), status.getUser().getName(), status.getUser().getScreenName());
-                Item result = new Item(user, status.getText());
+                Item result = new Item(user, status.getText(), status.getCreatedAt());
                 results.add(result);
             }
 
@@ -96,7 +96,7 @@ public class TwitConnection implements Connection {
             List<Status> statues = twitter.getUserTimeline(user_id);
             for (Status status : statues) {
                 UserBase user = TwitUserFactory.getInstance().getOrCreateUser(status.getUser().getId(), status.getUser().getName(), status.getUser().getScreenName());
-                Item result = new Item(user, status.getText());
+                Item result = new Item(user, status.getText(), status.getCreatedAt());
                 results.add(result);
             }
         } catch (TwitterException e) {

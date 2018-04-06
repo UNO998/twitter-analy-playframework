@@ -20,6 +20,7 @@ import lyc.*;
 
 public class UserActor extends AbstractActor{
 	private final ActorRef ws;
+	play.Logger.ALogger logger = play.Logger.of(getClass());
 
 	/**
      * 
@@ -67,19 +68,30 @@ public class UserActor extends AbstractActor{
      * @param
      */
 	private void sendUpdate(Message.Update msg){
-		List<Item> newItems = msg.getTweets();
+		CompletableFuture<List<SearchResult>> tweets = msg.getTweets();
 
-		final ObjectNode reponse = Json.newObject();
-		ArrayNode arrayNode = reponse.putArray("Tweets");
+		
+		tweets.thenApply(newItems -> {
+			ObjectNode response = Json.newObject();
+			ArrayNode arrayNode = response.putArray("Updates");
 
-		for(Item tweet : newItems){
-			ObjectNode object = arrayNode.addObject();
-			object.put("user_name", tweet.getUser_name());
-			object.put("text", tweet.getText());
-			object.put("href", tweet.getUser_link());
-		}
+			logger.error("5 seconds!!!!!!!!!");
+			for(SearchResult each : newItems){
+				ObjectNode tweetNode = arrayNode.addObject();
+				tweetNode.put("keyword", each.getKeyword());
 
-		// send Json msg to JavaScript
-		ws.tell(reponse, self());	
+				logger.error("keyword: " + each.getKeyword());
+				ArrayNode tweetsForKey = tweetNode.putArray("Tweets");
+				for(Item item : each.getTweets()){
+					logger.error(item.getText());
+					ObjectNode tweet = tweetsForKey.addObject();
+					tweet.put("user_name", item.getUser_name());
+					tweet.put("text", item.getText());
+					tweet.put("href", item.getUser_link());
+				}
+
+			}
+			return response;
+		}).thenAccept( response -> ws.tell(response, self()) );
 	}
 } 
