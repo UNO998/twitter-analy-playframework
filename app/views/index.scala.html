@@ -21,7 +21,7 @@
         }
 
         @for(each <- tweets) {
-            <div>
+            <div id="@each.getKeyword()">
                 <h2>Keyword: @each.getKeyword() </h2>
                 <table>
                     <thead>
@@ -49,5 +49,12 @@
                 <hr>
             </div>
         }
+
+
+        <div id="test">
+        </div>
+
+        <div id="tweets">
+        </div>
     </body>
 </html>
