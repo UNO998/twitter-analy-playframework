@@ -1,9 +1,12 @@
 package lyc;
 
+import java.util.Date;
+
 public class Item {
-    public Item(UserBase user, String text){
+    public Item(UserBase user, String text, Date created_time){
         this.user = user;
         this.text = text;
+        this.created_time = created_time;
     }
 
     public long getUser_id(){
@@ -34,6 +37,14 @@ public class Item {
         this.ref_user = ref_user;
     }
 
+    public void setCreated_time(Date date){
+        this.created_time = date;
+    }
+
+    public Date getCreated_time(){
+        return created_time;
+    }
+
     public UserBase getUser_profile() {
         return user;
     }
@@ -41,4 +52,5 @@ public class Item {
     private UserBase user;
     private String text;
     private String ref_user;
+    private Date created_time;
 }

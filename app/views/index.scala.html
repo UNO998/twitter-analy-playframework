@@ -1,36 +1,53 @@
-@(searchForm: Form[WidgetData], tweets: Seq[lyc.Item])
+@(request: play.mvc.Http.Request, searchForm: Form[WidgetData], tweets: Seq[lyc.SearchResult])
 
 
 @import helper._
 
-@main("Search Form") {
+<html>
 
-    <h1>Search form</h1>
-    @helper.form(routes.WidgetController.search) {
-        @helper.CSRF.formField
+    <head>
+        <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+        <script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>
+    </head>
 
-        @helper.inputText(searchForm("keyword"))
+    <body data-ws-url="@routes.HomeController.ws.webSocketURL(request)">
+        <h1>Search form</h1>
+        @helper.form(routes.HomeController.search) {
+            @helper.CSRF.formField
 
-        <button type="submit">Search</button>
-    }
+            @helper.inputText(searchForm("keyword"))
 
-
-    <table>
-        <thead>
-        <tr><th>Name</th>
-            <th>Tweet</th>
-            <th>Link</th>
-        </thead>
-        <tbody>
-        @for(w <- tweets) {
-        <tr>
-            <td>@w.getUser_name()</td>
-            <td>@w.getText()</td>
-            <td>
-                <a href="@routes.WidgetController.userProfile(w.getUser_id())">@w.getUser_link()</a>
-            </td>
-        </tr>
+            <button type="submit">Search</button>
         }
-        </tbody>
-    </table>
-}
+
+        @for(each <- tweets) {
+            <div>
+                <h2>Keyword: @each.getKeyword() </h2>
+                <table>
+                    <thead>
+                    <tr><th>Name</th>
+                        <th>Tweet</th>
+                        <th>Link</th>
+                        <th>Time</th>
+                    </thead>
+                    <tbody>
+                    @for(w <- each.getTweets()) {
+                        <tr>
+                            <td>@w.getUser_name()</td>
+                            <td>@w.getText()</td>
+                            <td>
+                                <a>@w.getUser_link()</a>
+                            </td>
+                            <td>
+                                @w.getCreated_time()
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+
+                <hr>
+            </div>
+        }
+    </body>
+</html>

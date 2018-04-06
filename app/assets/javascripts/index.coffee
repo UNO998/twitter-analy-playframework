@@ -1,0 +1,13 @@
+$ ->
+  ws = new WebSocket $("body").data("ws-url")
+  ws.onmessage = (event) ->
+    message = JSON.parse event.data
+
+###
+$ ->
+  ws = new WebSocket $("body").data("ws-url")
+  ws.onmessage = (event) ->
+    message = JSON.parse event.data
+    $('#time').append message.time + "<br/>"
+    $('#test').append "abc"+ "<br/>"
+###
