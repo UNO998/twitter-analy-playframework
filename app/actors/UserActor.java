@@ -77,15 +77,15 @@ public class UserActor extends AbstractActor{
 			ObjectNode response = Json.newObject();
 			ArrayNode arrayNode = response.putArray("updates");
 
-			logger.error("5 seconds!!!!!!!!!");
+			//logger.error("5 seconds!!!!!!!!!");
 			for(SearchResult each : newItems){
 				ObjectNode tweetNode = arrayNode.addObject();
 				tweetNode.put("keyword", each.getKeyword());
 
-				logger.error("keyword: " + each.getKeyword());
+				//logger.error("keyword: " + each.getKeyword());
 				ArrayNode tweetsForKey = tweetNode.putArray("tweets");
 				for(Item     item : each.getTweets()){
-					logger.error(item.getText());
+					//logger.error(item.getText());
 					ObjectNode tweet = tweetsForKey.addObject();
 					tweet.put("user_name", item.getUser_name());
 					tweet.put("text", item.getText());

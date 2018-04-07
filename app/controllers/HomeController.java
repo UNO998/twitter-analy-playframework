@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 import lyc.Item;
 import lyc.SearchResult;
+import lyc.TwitUserFactory;
+import lyc.UserBase;
 import actors.TwitterActor;
 import actors.UserActor;
 import actors.Message;
@@ -78,6 +80,8 @@ public class HomeController extends Controller{
 
 			// throw an AskTimeoutException exception if timeout
 			CompletionStage<Object> result = ask(twitterActor, keyword, timeout);
+
+			// ask -> Completable<Object>
 			CompletableFuture<CompletableFuture<List<SearchResult>>> tmp = result
 				.thenApply(objects -> (CompletableFuture<List<SearchResult>>) objects)
 				.toCompletableFuture();
@@ -100,6 +104,29 @@ public class HomeController extends Controller{
 		}
 
     }
+
+
+    /**
+     * Reponse of `Get /userProfile/:id' request. It will send a Message.User_id to twitter actor to get the user's homeline.
+     *
+     * @param user_id - the uesr's id
+     * @return a future object of the user profile page rendered by userProfile.scala.html or error page if the id doesn't exist.
+     */
+    public CompletionStage<Result> userProfile(long user_id){
+    	try{
+    		CompletableFuture<List<Item>> result = ask(twitterActor, new Message.User_id(user_id), timeout) 
+    													.thenApply(object -> (CompletableFuture<List<Item>>) object )
+    													.thenApply(future -> future.join())
+    													.toCompletableFuture();
+    		UserBase user = TwitUserFactory.getInstance().getUserById(user_id);
+			return result.thenApplyAsync(userHomeLine -> 
+						ok(views.html.userProfile.render(user, asScala(userHomeLine))), httpExecutionContext.current());
+
+    	} catch (Exception ex){
+    		return CompletableFuture.completedFuture( ok(views.html.error.render("User profile not found")) );
+    	}
+    }
+
 
     public WebSocket ws(){
     	return WebSocket.Json.accept(request -> 

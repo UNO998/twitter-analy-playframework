@@ -1,6 +1,8 @@
 package lyc;
 
 import java.util.Date;
+import java.util.Objects;
+
 
 public class Item {
     public Item(UserBase user, String text, Date created_time){
@@ -26,15 +28,8 @@ public class Item {
         return text;
     }
 
-    public String getRef_user() {
-        return ref_user;
-    }
-
     public void setText(String text){
         this.text = text;
-    }
-    public void setRef_user(String ref_user){
-        this.ref_user = ref_user;
     }
 
     public void setCreated_time(Date date){
@@ -49,8 +44,24 @@ public class Item {
         return user;
     }
 
+    @Override
+    public boolean equals(Object other){
+        if(other == this)
+            return true;
+        if( !(other instanceof Item) )
+            return false;
+
+        Item right = (Item) other;
+        return (user.equals(right.user) && text.equals(right.text) 
+            && created_time.equals(right.created_time));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user, text, created_time);
+    }
+
     private UserBase user;
     private String text;
-    private String ref_user;
     private Date created_time;
 }

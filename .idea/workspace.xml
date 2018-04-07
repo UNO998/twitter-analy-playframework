@@ -2,10 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e657148c-8bae-478c-96e4-9bb7a2c59f3b" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/test/twitterAPI/ItemTest.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/test/twitterAPI/UserBaseTest.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/assets/javascripts/index.coffee" afterPath="$PROJECT_DIR$/app/assets/javascripts/index.coffee" />
+      <change beforePath="$PROJECT_DIR$/app/actors/Message.java" afterPath="$PROJECT_DIR$/app/actors/Message.java" />
+      <change beforePath="$PROJECT_DIR$/app/actors/TwitterActor.java" afterPath="$PROJECT_DIR$/app/actors/TwitterActor.java" />
+      <change beforePath="$PROJECT_DIR$/app/actors/UserActor.java" afterPath="$PROJECT_DIR$/app/actors/UserActor.java" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/HomeController.java" afterPath="$PROJECT_DIR$/app/controllers/HomeController.java" />
+      <change beforePath="$PROJECT_DIR$/app/lyc/Item.java" afterPath="$PROJECT_DIR$/app/lyc/Item.java" />
+      <change beforePath="$PROJECT_DIR$/app/lyc/TwitUserImpl.java" afterPath="$PROJECT_DIR$/app/lyc/TwitUserImpl.java" />
+      <change beforePath="$PROJECT_DIR$/app/lyc/TwitterAccountFactory.java" afterPath="$PROJECT_DIR$/app/lyc/TwitterAccountFactory.java" />
+      <change beforePath="$PROJECT_DIR$/app/lyc/UserBase.java" afterPath="$PROJECT_DIR$/app/lyc/UserBase.java" />
       <change beforePath="$PROJECT_DIR$/app/views/index.scala.html" afterPath="$PROJECT_DIR$/app/views/index.scala.html" />
+      <change beforePath="$PROJECT_DIR$/app/views/userProfile.scala.html" afterPath="$PROJECT_DIR$/app/views/userProfile.scala.html" />
+      <change beforePath="$PROJECT_DIR$/conf/routes" afterPath="$PROJECT_DIR$/conf/routes" />
       <change beforePath="$PROJECT_DIR$/logs/application.log" afterPath="$PROJECT_DIR$/logs/application.log" />
+      <change beforePath="$PROJECT_DIR$/test/twitterAPI/TwitConnectionTest.java" afterPath="$PROJECT_DIR$/test/twitterAPI/TwitConnectionTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/project/project/target/" />
@@ -34,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.scala.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.scala.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="673">
-              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+            <state relative-caret-position="869">
+              <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -57,8 +69,8 @@
       <file leaf-file-name="HomeController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/HomeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+            <state relative-caret-position="-1227">
+              <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -89,16 +101,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="20">
               <caret line="11" column="19" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-              <folding />
+              <folding>
+                <marker date="1523143205946" expanded="true" signature="1264:1280" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TwitterActor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TwitterActor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/actors/TwitterActor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1424">
-              <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+            <state relative-caret-position="1724">
+              <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -396,6 +410,7 @@
         <entry key="$PROJECT_DIR$/../playFrameWork" value="PREVIEW" />
         <entry key="$PROJECT_DIR$/../playFrameWork/play-java-starter-example-2.6.x" value="PREVIEW" />
         <entry key="$PROJECT_DIR$/../timeractor" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
         <entry key="$USER_HOME$/Downloads/akka-quickstart-java" value="PREVIEW" />
         <entry key="$USER_HOME$/Downloads/play-java-rest-api-example" value="PREVIEW" />
         <entry key="$USER_HOME$/Downloads/play-java-starter-example-2.6.x" value="PREVIEW" />
@@ -415,16 +430,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1523061710920</updated>
-      <workItem from="1523061712590" duration="18364000" />
+      <workItem from="1523061712590" duration="18380000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18364000" />
+    <option name="totallyTimeSpent" value="18380000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="sbt" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -631,7 +645,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
           <caret line="11" column="19" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-          <folding />
+          <folding>
+            <marker date="1523143205946" expanded="true" signature="1264:1280" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -651,26 +667,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="673">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/index.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="16" column="16" lean-forward="false" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/HomeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -685,8 +685,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/actors/TwitterActor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1424">
-          <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+        <state relative-caret-position="1724">
+          <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/HomeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1227">
+          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="869">
+          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
           <folding />
         </state>
       </provider>
