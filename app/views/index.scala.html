@@ -36,7 +36,7 @@
                             <td>@w.getUser_name()</td>
                             <td>@w.getText()</td>
                             <td>
-                                <a>@w.getUser_link()</a>
+                                <a href="@routes.HomeController.userProfile(w.getUser_id())">@w.getUser_link()</a>
                             </td>
                             <td>
                                 @w.getCreated_time()

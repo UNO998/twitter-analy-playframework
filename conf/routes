@@ -6,6 +6,7 @@
 GET     /                           controllers.HomeController.index
 POST	/widgets 					controllers.HomeController.search
 GET		/ws			controllers.HomeController.ws
+GET     /userProfile/:userId        controllers.HomeController.userProfile(userId: Long)
 
 
 

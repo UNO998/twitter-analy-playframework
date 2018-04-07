@@ -91,6 +91,11 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 				sender().tell(futureItems, self());
 			})
+			.match(Message.User_id.class, msg -> {
+				CompletableFuture<List<Item>> result = twitter.thenApply(connection -> 
+															connection.getHomeLineById(msg.getUser_id()));
+				sender().tell(result, self());
+			})
 			.match(Message.Tick.class, msg -> notifyUsers())
 			.build();
 	}
