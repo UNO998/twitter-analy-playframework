@@ -9,4 +9,16 @@ public class TwitUserImpl extends UserBase {
         user_link = "www.twitter.com/" + user_screenName;
     }
 
+
+    @Override
+    public boolean equals(Object other){
+        if(other == this)
+            return true;
+        if( !(other instanceof TwitUserImpl) )
+            return false;
+
+        TwitUserImpl right = (TwitUserImpl) other;
+        return super.equals(right);
+    }
+
 }

@@ -1,6 +1,7 @@
 package lyc;
 
 import java.util.List;
+import java.util.Objects;
 
 public abstract class UserBase {
 
@@ -47,4 +48,21 @@ public abstract class UserBase {
         this.user_screenName = user_screenName;
     }
 
+
+    @Override
+    public boolean equals(Object other){
+        if(other == this)
+            return true;
+        if( !(other instanceof UserBase) )
+            return false;
+
+        UserBase right = (UserBase) other;
+        return ( (user_id==right.user_id) && user_screenName.equals(right.user_screenName)
+                && user_name.equals(right.user_name) && user_link.equals(right.user_link));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user_id, user_link, user_name, user_screenName);
+    }
 }

@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
@@ -152,9 +154,17 @@ public class TwitterActor extends AbstractActorWithTimers{
      * 
      * @param
      */
-	private List<Item> getUpdate(List<Item> now, List<Item> history){
-		// TODO
-		return now;
+	private List<Item> getUpdate(List<Item> now, List<Item> history) {
+		Stream<Item> combination = Stream.concat(now.stream(), history.stream());
+
+		List<Item> update = combination
+			.distinct()
+			.sorted((op1, op2) -> op1.getCreated_time().before(op2.getCreated_time())? 1 : -1 )
+			.limit(limit)
+			.collect(Collectors.toList());
+
+			
+		return update;
 	}
 
 

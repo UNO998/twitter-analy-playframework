@@ -27,11 +27,9 @@ public class ItemTest {
         Date now = new Date();
 
         item.setText("this is a test.");
-        item.setRef_user("ref");
         item.setCreated_time(now);
 
         assertEquals("this is a test.", item.getText());
-        assertEquals("ref", item.getRef_user());
         assertEquals(now, item.getCreated_time());
         assertEquals("www.twitter.com/test", item.getUser_link());
 
