@@ -41,7 +41,7 @@
             </nav>
         }
 
-        <div class="list-group">
+        <div id="tweets" class="list-group">
             @for(each <- tweets) {
                 <div id="@each.getKeyword()">
                     <h2>Keyword: @each.getKeyword() </h2>
@@ -60,12 +60,6 @@
         </div>
 
 
-
-        <div id="test">
-        </div>
-
-        <div id="tweets">
-        </div>
         <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
         <script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>
         <script src="@routes.Assets.versioned("js/bootstrap.js")" type="text/javascript"></script>

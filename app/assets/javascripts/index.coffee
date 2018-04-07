@@ -13,9 +13,19 @@ appendUpdate = (update) ->
 appendKeyword = (key) ->
 	$('#test').append key + "<br/>"
 
+
 appendTweets = (tweets) ->
-	 $('#tweets').append tweet.user_name + "\t\t" + tweet.text + "\t\t" + tweet.href +  "<br/>" for tweet in tweets
-	
+#  $('#tweets').append tweet.user_name + "<br/>" + tweet.text + "<br/>" + tweet.href +  "<br/>" for tweet in tweets
+  para = $ "<a>"
+  para.append "<div  class=\"list-group-item list-group-item-action flex-column align-items-start\">" +
+    "<div class=\"d-flex w-100 justify-content-between\">" +
+    "<a href='#' class='mb-1'>" + tweet.user_name + "</a>"  +
+    "</div>" +
+    "<p class='mb-1'>" + tweet.text + "</p>" +
+    " </div>" for tweet in tweets
+  $('#tweets').html(para)
+
+
 
 
 
