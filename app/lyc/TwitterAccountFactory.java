@@ -7,7 +7,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterAccountFactory implements AccountFactory {
     @Override
-    public Connection createAccount(String []auths) {
+    public TwitConnection createAccount(String []auths) {
         if(auths.length != 4)
             return null;
 

@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class TwitConnectionTest {
 
-    private Connection account;
+    private TwitConnection account;
 
     @Before
     public void setUp() throws Exception {
@@ -37,6 +37,9 @@ public class TwitConnectionTest {
     public void TestGetCurrentUser(){
         UserBase user = account.getCurrentUser();
         assertEquals(user.getUser_screenName(), "WingCueng_Ray");
+
+        user = account.getCurrentUser();
+        assertEquals(user.getUser_screenName(), "WingCueng_Ray");
     }
 
     @Test
@@ -49,6 +52,9 @@ public class TwitConnectionTest {
             assertThat(item.getText(), notNullValue());
             assertTrue(item.getUser_id() > 0);
         }
+
+        results = account.SearchPost("hello");
+        assertTrue(results.size() > 10);
     }
 
     @Test

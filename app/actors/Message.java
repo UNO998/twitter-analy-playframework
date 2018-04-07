@@ -26,8 +26,32 @@ public final class Message {
             this.keyword = requireNonNull(keyword);
         }
 
+        /**
+         * 
+         * @param
+         */
         public String getKeyword(){
             return keyword;
+        }
+    }
+
+    public static final class User_id{
+        private long user_id;
+
+        /**
+         * 
+         * @param
+         */
+        public User_id(long user_id){
+            this.user_id = user_id;
+        }
+
+        /**
+         * 
+         * @param
+         */
+        public long getUser_id(){
+            return user_id;
         }
     }
 
