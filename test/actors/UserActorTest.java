@@ -16,11 +16,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Akka Testkit for UserActor
+ */
+
 public class UserActorTest {
     static ActorSystem system;
     static Message.Update tweets;
 
-
+    /**
+     * setting up the system and Message.Update to
+     * to send user actor
+     */
     @BeforeClass
     public static void setup() {
         system = ActorSystem.create();
@@ -29,12 +36,20 @@ public class UserActorTest {
         tweets = new Message.Update(CompletableFuture.supplyAsync(() -> resultTest));
     }
 
+    /**
+     * shut down actor system
+     */
     @AfterClass
     public static void teardown() {
         TestKit.shutdownActorSystem(system);
         system = null;
     }
 
+    /**
+     * testing the function of user actor
+     * we don't except message from user actor ,so we send user actor
+     * Message Update to test the whole function
+     */
     @Test
     public void testIt() {
 
@@ -49,10 +64,7 @@ public class UserActorTest {
             within(duration("3 seconds"), () -> {
                 subject.tell(tweets, probe.getRef());
                 expectNoMsg();
-
                 return null;
-
-
             });
         }};
     }
