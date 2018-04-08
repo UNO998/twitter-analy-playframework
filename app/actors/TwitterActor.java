@@ -82,6 +82,7 @@ public class TwitterActor extends AbstractActorWithTimers{
 	public Receive createReceive(){
 		return receiveBuilder()
 			.match(Message.Register.class, msg -> {userActors.add(sender()); })
+			.match(Message.Clear.class, msg -> {keywords.clear(); history.clear();})
 			.match(Message.Keyword.class, msg -> {
 				CompletableFuture<List<SearchResult>> futureItems = twitter.thenApply( connection ->{
 					List<SearchResult> newTweets = new ArrayList<SearchResult>();

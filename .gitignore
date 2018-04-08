@@ -16,10 +16,10 @@ gradle-app.setting
 ### PlayFramework template
 # Ignore Play! working directory #
 
-/logs/
-/modules
-/project/project
-/project/target
-/target
+logs/
+modules
+project/project
+project/target
+target
 
 .idea/inspectionProfiles/

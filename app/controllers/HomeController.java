@@ -110,6 +110,21 @@ public class HomeController extends Controller{
 
 
     /**
+     * 
+     *
+     * @param 
+     * @return 
+     */
+    public CompletionStage<Result> clear() {
+        	tweets = CompletableFuture.supplyAsync(() -> new ArrayList<SearchResult>());
+
+        	twitterActor.tell(new Message.Clear(), ActorRef.noSender());
+
+        	return CompletableFuture.completedFuture(redirect(routes.HomeController.index()));
+    }
+
+
+    /**
      * Reponse of `Get /userProfile/:id' request. It will send a Message.User_id to twitter actor to get the user's homeline.
      *
      * @param user_id - the uesr's id
