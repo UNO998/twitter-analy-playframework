@@ -90,6 +90,7 @@ public class UserActor extends AbstractActor{
 					tweet.put("user_name", item.getUser_name());
 					tweet.put("text", item.getText());
 					tweet.put("href", item.getUser_link());
+					tweet.put("user_id", item.getUser_id());
 				}
 
 			}
