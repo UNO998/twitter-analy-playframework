@@ -1,7 +1,7 @@
 target/
 ### Gradle template
 .gradle
-
+.idea
 # Ignore Gradle GUI config
 gradle-app.setting
 
