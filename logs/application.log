@@ -1,51 +1,16 @@
-2018-04-08 10:16:26,710 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-3 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2018-04-08 10:38:42,718 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-2 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
 
-2018-04-08 10:16:26,717 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-3 - Application started (Dev)
-2018-04-08 10:16:30,609 [ERROR] from application in application-akka.actor.default-dispatcher-2 - 
-
-! @77gka102j - Internal server error, for (GET) [/] ->
- 
-play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[CompletionException: java.lang.NullPointerException]]
-	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:255)
-	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:182)
-	at play.core.server.AkkaHttpServer$$anonfun$2.applyOrElse(AkkaHttpServer.scala:320)
-	at play.core.server.AkkaHttpServer$$anonfun$2.applyOrElse(AkkaHttpServer.scala:318)
-	at scala.concurrent.Future.$anonfun$recoverWith$1(Future.scala:414)
-	at scala.concurrent.impl.Promise.$anonfun$transformWith$1(Promise.scala:37)
-	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:60)
-	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
-	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:91)
-	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:12)
-	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:81)
-	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:91)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:43)
-	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-Caused by: java.util.concurrent.CompletionException: java.lang.NullPointerException
-	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:314)
-	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:319)
-	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:645)
-	at java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478)
-	at play.core.j.HttpExecutionContext$$anon$2.run(HttpExecutionContext.scala:56)
-	... 6 common frames omitted
-Caused by: java.lang.NullPointerException: null
-	at views.html.index$.$anonfun$apply$2(index.template.scala:79)
-	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:234)
-	at scala.collection.immutable.List.foreach(List.scala:389)
-	at scala.collection.TraversableLike.map(TraversableLike.scala:234)
-	at scala.collection.TraversableLike.map$(TraversableLike.scala:227)
-	at scala.collection.immutable.List.map(List.scala:295)
-	at views.html.index$.apply(index.template.scala:76)
-	at views.html.index$.render(index.template.scala:108)
-	at views.html.index.render(index.template.scala)
-	at controllers.HomeController.lambda$index$1(HomeController.java:61)
-	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)
-	... 8 common frames omitted
-2018-04-08 10:16:31,665 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 1
+2018-04-08 10:38:42,723 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-2 - Application started (Dev)
+2018-04-08 10:38:48,210 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 1
+2018-04-08 10:38:52,676 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 2
+2018-04-08 10:38:57,678 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 10:39:02,679 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 10:39:07,668 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 10:39:12,678 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 10:39:17,679 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 10:39:22,678 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 10:39:27,679 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
