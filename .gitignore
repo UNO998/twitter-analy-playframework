@@ -1,7 +1,7 @@
 target/
 ### Gradle template
 .gradle
-.idea
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
@@ -16,10 +16,12 @@ gradle-app.setting
 ### PlayFramework template
 # Ignore Play! working directory #
 
-/logs/
-/modules
-/project/project
-/project/target
-/target
 
-.idea/inspectionProfiles/
+logs/
+modules
+project/project
+project/target
+target
+
+.idea/
+.vscode/
