@@ -21,6 +21,9 @@ import java.util.concurrent.CompletionStage;
 import java.util.List;
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import lyc.Item;
 import lyc.SearchResult;
 import lyc.TwitUserFactory;
@@ -31,7 +34,6 @@ import actors.Message;
 
 @Singleton
 public class HomeController extends Controller{
-
 	@Inject private ActorSystem actorSystem;
 	@Inject private Materializer materializer;
 	@Inject private HttpExecutionContext httpExecutionContext;
@@ -44,11 +46,12 @@ public class HomeController extends Controller{
 	play.Logger.ALogger logger = play.Logger.of(getClass());
 	
 
-	@Inject public HomeController(ActorSystem system, FormFactory formFactory){
+	@Inject 
+	public HomeController(FormFactory formFactory, @Named("twitterActor") ActorRef twitterActor){
 		//twitterActor = system.actorOf(TwitterActor.getProps(), "TimeActor");
 		// the path of twitterActor is "/user/twitterActor"
-		twitterActor = system.actorOf(TwitterActor.getProps(), "twitterActor");
-		form = formFactory.form(WidgetData.class);
+		this.twitterActor = twitterActor;
+		this.form = formFactory.form(WidgetData.class);
 
 		// initialization
 		this.tweets = CompletableFuture.supplyAsync(() -> new ArrayList<SearchResult>());   
@@ -103,6 +106,21 @@ public class HomeController extends Controller{
 			);
 		}
 
+    }
+
+
+    /**
+     * 
+     *
+     * @param 
+     * @return 
+     */
+    public CompletionStage<Result> clear() {
+        	tweets = CompletableFuture.supplyAsync(() -> new ArrayList<SearchResult>());
+
+        	twitterActor.tell(new Message.Clear(), ActorRef.noSender());
+
+        	return CompletableFuture.completedFuture(redirect(routes.HomeController.index()));
     }
 
 

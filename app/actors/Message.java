@@ -15,6 +15,10 @@ public final class Message {
 
     }
 
+    public static final class Clear{
+        
+    }
+
     public static final class Keyword{
         private String keyword;
 
