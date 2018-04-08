@@ -10,6 +10,8 @@ crossScalaVersions := Seq("2.11.12", "2.12.4")
 
 libraryDependencies += guice
 
+libraryDependencies += "javax.xml.bind" % "jaxb-api" % "2.1"
+
 // Test Database
 libraryDependencies += "com.h2database" % "h2" % "1.4.196"
 

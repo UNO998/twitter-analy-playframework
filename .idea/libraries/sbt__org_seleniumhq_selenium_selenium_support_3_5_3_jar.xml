@@ -4,8 +4,6 @@
       <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-support/jars/selenium-support-3.5.3.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/org.seleniumhq.selenium/selenium-support/srcs/selenium-support-3.5.3-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>
