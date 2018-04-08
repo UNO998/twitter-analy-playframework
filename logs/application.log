@@ -1,16 +1,29 @@
-2018-04-08 10:38:42,718 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-2 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2018-04-08 11:24:47,425 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-2 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
 
-2018-04-08 10:38:42,723 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-2 - Application started (Dev)
-2018-04-08 10:38:48,210 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 1
-2018-04-08 10:38:52,676 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 2
-2018-04-08 10:38:57,678 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
-2018-04-08 10:39:02,679 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
-2018-04-08 10:39:07,668 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
-2018-04-08 10:39:12,678 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
-2018-04-08 10:39:17,679 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
-2018-04-08 10:39:22,678 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
-2018-04-08 10:39:27,679 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:24:47,431 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-2 - Application started (Dev)
+2018-04-08 11:24:52,402 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 2
+2018-04-08 11:24:57,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 2
+2018-04-08 11:25:02,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 2
+2018-04-08 11:25:07,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:25:12,399 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:25:17,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:25:22,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:25:27,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:25:32,399 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:25:37,401 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:25:42,399 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:25:47,400 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:25:52,399 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:25:57,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:26:02,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:26:07,400 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:26:12,400 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:26:17,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:26:22,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:26:27,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:26:32,399 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
+2018-04-08 11:26:37,398 [ERROR] from actors.TwitterActor in ForkJoinPool.commonPool-worker-9 - HashSet size: 3
