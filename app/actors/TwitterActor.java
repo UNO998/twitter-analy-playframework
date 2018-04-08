@@ -19,7 +19,9 @@ import akka.actor.AbstractActorWithTimers;
 
 import lyc.*;
 
-
+/**
+ * create TwitterActor, create auths to Twitter, set timmer, search the tweets
+ */
 public class TwitterActor extends AbstractActorWithTimers{
 	private final CompletableFuture<Connection> twitter;
 	private final Set<ActorRef> userActors;
@@ -31,9 +33,8 @@ public class TwitterActor extends AbstractActorWithTimers{
 	play.Logger.ALogger logger = play.Logger.of(getClass());
 
 	/**
-     * 
-     * @param
-     */
+	 * construtor, config the auths
+	 */
 	public TwitterActor(){
 		userActors = new HashSet<>();
 		keywords = new HashSet<>();
@@ -51,9 +52,8 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     * 
-     * @param
-     */
+	 * configuration and set timmer
+	 */
 	@Override
     public void preStart(){
         getTimers().startPeriodicTimer("Timer", new Message.Tick(), Duration.create(5, TimeUnit.SECONDS));
@@ -61,18 +61,18 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     * 
-     * @param
-     */
+	 * get TwitterActor
+	 * @return Create TwitterActor class
+	 */
 	public static Props getProps(){
 		return Props.create(TwitterActor.class);
 	}
 
 
 	/**
-     * 
-     * @param
-     */
+	 * install receive, TwitterActor change behavior dependents on message
+	 * @return receive
+	 */
 	@Override
 	public Receive createReceive(){
 		return receiveBuilder()
@@ -104,9 +104,8 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     * 
-     * @param
-     */
+	 * notify the userActor to update the tweets
+	 */
 	private void notifyUsers(){
 		
 		CompletableFuture<List<SearchResult>> updateTweets = CompletableFuture.supplyAsync( () -> {
@@ -151,9 +150,11 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     * 
-     * @param
-     */
+	 * update the old history item
+	 * @param now new item list
+	 * @param history old item list
+	 * @return new list of item
+	 */
 	private List<Item> getUpdate(List<Item> now, List<Item> history) {
 		Stream<Item> combination = Stream.concat(now.stream(), history.stream());
 
