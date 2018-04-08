@@ -5,36 +5,69 @@
 
 @main("User Profile") {
 
-<h2>@user.getUser_name()</h2>
-<table>
-    <tbody>
-    <tr>
-        <td>Id</td>
-        <td>@user.getUser_id()</td>
-    </tr>
-    <tr>
-        <td>Screen name</td>
-        <td>@user.getUser_screenName()</td>
-    </tr>
-    </tbody>
-</table>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="@routes.HomeController.index()">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<h2>Homeline</h2>
-<table>
-    <thead>
-        <tr>
-            <td>Name</td>
-            <td>Text</td>
-        </tr>
-    </thead>
-    <tbody>
-    @for(w <- tweets) {
-        <tr>
-            <td>@w.getUser_name()</td>
-            <td>@w.getText()</td>
-        </tr>
-    }
-    </tbody>
-</table>
+    </nav>
+    <div class="container">
+        <div class="tab-content">
+            <div class="tab-pane" id="profile">Content here...</div>
+            <div class="tab-pane" id="messages">Messages...</div>
+            <div class="tab-pane" id="settings">Settings...</div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10"><h1>@user.getUser_screenName()</h1></div>
+            @*<div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src=@users.getProfile_image_url></a></div>*@
+        </div>
+        <div class="row">
+            <div class="col-sm-3"><!--left col-->
 
+                <ul class="list-group">
+                    <li class="list-group-item text-muted">Profile</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>id</strong></span> @user.getUser_id()</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>name</strong></span> @user.getUser_name()</li>
+                </ul>
+
+
+                @*<ul class="list-group">*@
+                    @*<li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>*@
+                    @*<li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> @users.getPosts</li>*@
+                    @*<li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> @users.getFollowers</li>*@
+                @*</ul>*@
+
+            </div><!--/col-3-->
+            <div class="col-sm-9">
+
+
+                <hr>
+
+                <h4>Recent Activity</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+
+                        <tbody>
+                        @for(w <- tweets) {
+                            <tr>
+                                <td><i class="pull-right fa fa-edit"></i> @w.getText()</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div><!--/tab-pane-->
+
+
+
+        </div><!--/tab-pane-->
+    </div><!--/tab-content-->
+    </div><!--/col-9-->
+    </div><!--/row-->
 }
