@@ -17,6 +17,9 @@ import akka.actor.Props;
 import scala.concurrent.duration.Duration;
 import akka.actor.AbstractActorWithTimers;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import lyc.*;
 
 
@@ -30,11 +33,13 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 	play.Logger.ALogger logger = play.Logger.of(getClass());
 
+
 	/**
      * 
      * @param
      */
-	public TwitterActor(){
+	@Inject
+	public TwitterActor(@Named("twitterFactory") AccountFactory factory){
 		userActors = new HashSet<>();
 		keywords = new HashSet<>();
 		history = new HashMap<>();
@@ -45,7 +50,7 @@ public class TwitterActor extends AbstractActorWithTimers{
                 "2965074672-HcndnMSZkdDKNqF1vqoERR1nynKLnKKqhMovkw4",
                 "mue5UQ1QWSwGWDgf1lDTnrSeLJFVJLZltQxdyL34u0C0a"
         };
-		AccountFactory factory = new TwitterAccountFactory();
+
         this.twitter = CompletableFuture.supplyAsync( () -> factory.createAccount(auths) );
 	}
 
