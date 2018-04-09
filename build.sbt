@@ -22,6 +22,7 @@ libraryDependencies += "junit" % "junit" % "4.12" % "test"
 libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test"
 
 libraryDependencies += ws
+libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % "2.5.11" % Test
 
 
 libraryDependencies ++= Seq(

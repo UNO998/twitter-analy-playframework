@@ -17,6 +17,9 @@ import akka.actor.Props;
 import scala.concurrent.duration.Duration;
 import akka.actor.AbstractActorWithTimers;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import lyc.*;
 
 /**
@@ -32,10 +35,13 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 	play.Logger.ALogger logger = play.Logger.of(getClass());
 
+
 	/**
-	 * construtor, config the auths
-	 */
-	public TwitterActor(){
+     *
+     * @param
+     */
+	@Inject
+	public TwitterActor(@Named("twitterFactory") AccountFactory factory){
 		userActors = new HashSet<>();
 		keywords = new HashSet<>();
 		history = new HashMap<>();
@@ -46,7 +52,7 @@ public class TwitterActor extends AbstractActorWithTimers{
                 "2965074672-HcndnMSZkdDKNqF1vqoERR1nynKLnKKqhMovkw4",
                 "mue5UQ1QWSwGWDgf1lDTnrSeLJFVJLZltQxdyL34u0C0a"
         };
-		AccountFactory factory = new TwitterAccountFactory();
+
         this.twitter = CompletableFuture.supplyAsync( () -> factory.createAccount(auths) );
 	}
 
@@ -77,6 +83,7 @@ public class TwitterActor extends AbstractActorWithTimers{
 	public Receive createReceive(){
 		return receiveBuilder()
 			.match(Message.Register.class, msg -> {userActors.add(sender()); })
+			.match(Message.Clear.class, msg -> {keywords.clear(); history.clear();})
 			.match(Message.Keyword.class, msg -> {
 				CompletableFuture<List<SearchResult>> futureItems = twitter.thenApply( connection ->{
 					List<SearchResult> newTweets = new ArrayList<SearchResult>();
@@ -94,7 +101,7 @@ public class TwitterActor extends AbstractActorWithTimers{
 				sender().tell(futureItems, self());
 			})
 			.match(Message.User_id.class, msg -> {
-				CompletableFuture<List<Item>> result = twitter.thenApply(connection -> 
+				CompletableFuture<List<Item>> result = twitter.thenApply(connection ->
 															connection.getHomeLineById(msg.getUser_id()));
 				sender().tell(result, self());
 			})
@@ -107,7 +114,7 @@ public class TwitterActor extends AbstractActorWithTimers{
 	 * notify the userActor to update the tweets
 	 */
 	private void notifyUsers(){
-		
+
 		CompletableFuture<List<SearchResult>> updateTweets = CompletableFuture.supplyAsync( () -> {
 				List<SearchResult> return_val = new ArrayList<SearchResult>();
 
@@ -144,8 +151,8 @@ public class TwitterActor extends AbstractActorWithTimers{
 				user.tell(new Message.Update(updateTweets), self());
 			} catch(Exception e){
 				return;
-			}	
-		}		
+			}
+		}
 	}
 
 
@@ -164,10 +171,10 @@ public class TwitterActor extends AbstractActorWithTimers{
 			.limit(limit)
 			.collect(Collectors.toList());
 
-			
+
 		return update;
 	}
 
 
-	
-} 
+
+}
