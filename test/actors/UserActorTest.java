@@ -19,7 +19,6 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Akka Testkit for UserActor
  */
-
 public class UserActorTest {
     static ActorSystem system;
     static Message.Update tweets;
