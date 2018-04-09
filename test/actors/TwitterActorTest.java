@@ -27,14 +27,17 @@ import java.util.Arrays;
 import play.Application;  
 import play.inject.guice.GuiceApplicationBuilder;
 import static play.inject.Bindings.bind;
+import akka.testkit.TestActorRef;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.name.Names;
 
 import java.io.PrintWriter;
 
 public class TwitterActorTest{
 
-	 private ActorSystem system;
-	private ActorRef target = null;
-	private Application application;
+	private ActorSystem system;
 
 	PrintWriter writer;
 	UserBase user1;
@@ -53,13 +56,7 @@ public class TwitterActorTest{
     	}catch(Exception ex){
     		return;
     	}
-    	
-
-    	application = new GuiceApplicationBuilder()
-			.overrides(bind(Connection.class).to(FakeConnection.class))
-			.build();
 	}
-
 
 
 	@Before
@@ -77,20 +74,13 @@ public class TwitterActorTest{
 	}
 
 
-	@Test
-	public void testIt(){
+	@Test 
+	public void testDependencyInjection(){
+		// Use Dependency Injection to create TwitterActor (ActorRef)
+		Injector injector = Guice.createInjector(new lyc.Module());
+		ActorRef twitterActor = injector.getInstance(Key.get(ActorRef.class, Names.named("twitterActor")));
+
 		new TestKit(system) {{
-			// disable timer function
-			AccountFactory factory = new FakeConnectionFactory();
-			final Props props = Props.create(TwitterActor.class, () -> new TwitterActor(factory){
-				@Override
-				public void preStart(){
-					return;
-			    }
-
-			});
-			final ActorRef twitterActor = system.actorOf(props);
-
 			// why we don't just use the member system ??
 			final TestKit probe = new TestKit(system);
 			twitterActor.tell(new Message.Register(), getRef());
@@ -125,6 +115,8 @@ public class TwitterActorTest{
 			assertThat(recv, is(expected_sr));
 	
 		}};
+
+
 	}
 
 }
