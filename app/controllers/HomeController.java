@@ -48,8 +48,13 @@ public class HomeController extends Controller{
 	private CompletableFuture<List<SearchResult>> tweets;
 
 	play.Logger.ALogger logger = play.Logger.of(getClass());
-	
 
+
+	/**
+	 * Constructor
+	 * @param formFactory The factory whihch create the controller.
+	 * @param twitterActor The actorRef of TwitterActor.
+	 */
 	@Inject 
 	public HomeController(FormFactory formFactory, @Named("twitterActor") ActorRef twitterActor){
 		//twitterActor = system.actorOf(TwitterActor.getProps(), "TimeActor");

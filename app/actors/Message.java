@@ -21,10 +21,16 @@ public final class Message {
 
     }
 
+    /**
+     * The Clear message is used to pass a clear request between actors.
+     */
     public static final class Clear{
 
     }
 
+    /**
+     * The Keyword message is used to pass the keyword between actors.
+     */
     public static final class Keyword{
         private String keyword;
 

@@ -1,5 +1,8 @@
 package lyc;
 
+/**
+ * The implementation of interface UserBase.
+ */
 public class TwitUserImpl extends UserBase {
     public TwitUserImpl(long user_id, String user_name, String user_screenName) {
         super(user_id, user_name, user_screenName);

@@ -106,8 +106,8 @@ public class UserActor extends AbstractActor{
 
 
 	/**
-     * 
-     * @param
+     * The method which convert the jsonNode to String
+     * @param jsonNode The string of jsonNode
      */
 	private String prettyPrintJsonString(ObjectNode jsonNode) {
     try {
