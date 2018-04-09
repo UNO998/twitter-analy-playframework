@@ -19,7 +19,6 @@ import java.util.concurrent.CompletionStage;
 
 import lyc.*;
 
-
 public class UserActor extends AbstractActor{
 	private final ActorRef ws;
 	play.Logger.ALogger logger = play.Logger.of(getClass());

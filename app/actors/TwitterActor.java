@@ -22,7 +22,9 @@ import javax.inject.Named;
 
 import lyc.*;
 
-
+/**
+ * create TwitterActor, create auths to Twitter, set timmer, search the tweets
+ */
 public class TwitterActor extends AbstractActorWithTimers{
 	private final CompletableFuture<Connection> twitter;
 	private final Set<ActorRef> userActors;
@@ -35,9 +37,9 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     * 
-     * @param
-     */
+	 * constructor, config auths and install parameter
+	 * @param factory
+	 */
 	@Inject
 	public TwitterActor(@Named("twitterFactory") AccountFactory factory){
 		userActors = new HashSet<>();
@@ -56,9 +58,8 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     * 
-     * @param
-     */
+	 * configuration and set timmer
+	 */
 	@Override
     public void preStart(){
         getTimers().startPeriodicTimer("Timer", new Message.Tick(), Duration.create(5, TimeUnit.SECONDS));
@@ -66,18 +67,18 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     * 
-     * @param
-     */
+	 * get TwitterActor
+	 * @return Create TwitterActor class
+	 */
 	public static Props getProps(){
 		return Props.create(TwitterActor.class);
 	}
 
 
 	/**
-     * 
-     * @param
-     */
+	 * install receive, TwitterActor change behavior dependents on message
+	 * @return receive
+	 */
 	@Override
 	public Receive createReceive(){
 		return receiveBuilder()
@@ -100,7 +101,7 @@ public class TwitterActor extends AbstractActorWithTimers{
 				sender().tell(futureItems, self());
 			})
 			.match(Message.User_id.class, msg -> {
-				CompletableFuture<List<Item>> result = twitter.thenApply(connection -> 
+				CompletableFuture<List<Item>> result = twitter.thenApply(connection ->
 															connection.getHomeLineById(msg.getUser_id()));
 				sender().tell(result, self());
 			})
@@ -110,11 +111,10 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     * 
-     * @param
-     */
+	 * notify the userActor to update the tweets
+	 */
 	private void notifyUsers(){
-		
+
 		CompletableFuture<List<SearchResult>> updateTweets = CompletableFuture.supplyAsync( () -> {
 				List<SearchResult> return_val = new ArrayList<SearchResult>();
 
@@ -151,15 +151,17 @@ public class TwitterActor extends AbstractActorWithTimers{
 				user.tell(new Message.Update(updateTweets), self());
 			} catch(Exception e){
 				return;
-			}	
-		}		
+			}
+		}
 	}
 
 
 	/**
-     * 
-     * @param
-     */
+	 * update the old history item
+	 * @param now new item list
+	 * @param history old item list
+	 * @return new list of item
+	 */
 	private List<Item> getUpdate(List<Item> now, List<Item> history) {
 		Stream<Item> combination = Stream.concat(now.stream(), history.stream());
 
@@ -169,10 +171,10 @@ public class TwitterActor extends AbstractActorWithTimers{
 			.limit(limit)
 			.collect(Collectors.toList());
 
-			
+
 		return update;
 	}
 
 
-	
-} 
+
+}

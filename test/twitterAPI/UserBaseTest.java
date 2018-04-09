@@ -10,16 +10,25 @@ import java.util.List;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 
+/**
+ * test UserBase class
+ */
 public class UserBaseTest {
 
     private UserBase user;
 
+    /**
+     * config the install parameter
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         user = new TwitUserImpl(111, "test", "test");
     }
 
-
+    /**
+     * test get and set method
+     */
     @Test
     public void TestGetterAndSetter(){
         user.setUser_id(12345);
