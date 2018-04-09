@@ -1,6 +1,5 @@
 package lyc;
 
-
 public interface AccountFactory {
     /**
      * Create a connection for an account with authentication

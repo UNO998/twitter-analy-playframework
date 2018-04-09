@@ -37,9 +37,9 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     *
-     * @param
-     */
+	 * constructor, config auths and install parameter
+	 * @param factory
+	 */
 	@Inject
 	public TwitterActor(@Named("twitterFactory") AccountFactory factory){
 		userActors = new HashSet<>();

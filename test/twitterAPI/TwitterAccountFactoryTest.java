@@ -4,7 +4,14 @@ import org.junit.Test;
 import java.util.List;
 import static org.junit.Assert.*;
 
+/**
+ * test twitterAccountFactory class
+ */
 public class TwitterAccountFactoryTest {
+
+    /**
+     * test creat method, config the install value
+     */
     @Test
     public void TestCreateMethod() {
         String []valid_auths = new String[]{
