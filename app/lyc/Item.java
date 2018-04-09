@@ -11,6 +11,12 @@ public class Item {
         this.created_time = created_time;
     }
 
+    public Item(Item other){
+        this.user = other.user;
+        this.text = new String(other.text);
+        this.created_time = other.created_time;
+    }
+
     public long getUser_id(){
         return user.getUser_id();
     }
