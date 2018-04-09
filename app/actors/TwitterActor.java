@@ -56,9 +56,8 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     * 
-     * @param
-     */
+	 *
+	 */
 	@Override
     public void preStart(){
         getTimers().startPeriodicTimer("Timer", new Message.Tick(), Duration.create(5, TimeUnit.SECONDS));
@@ -66,9 +65,9 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-     * 
-     * @param
-     */
+	 *
+	 * @return
+	 */
 	public static Props getProps(){
 		return Props.create(TwitterActor.class);
 	}
