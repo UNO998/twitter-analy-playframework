@@ -29,6 +29,10 @@ import actors.TwitterActor;
 import actors.UserActor;
 import actors.Message;
 
+/**
+ * This controller contains the actions to make a websocket connection,
+ * initial actor system, define actors.
+ */
 @Singleton
 public class HomeController extends Controller{
 
@@ -52,10 +56,13 @@ public class HomeController extends Controller{
 
 		// initialization
 		this.tweets = CompletableFuture.supplyAsync(() -> new ArrayList<SearchResult>());   
-	} 
+	}
 
 
-
+	/**
+	 * An action that render HTML page.
+	 * @return return a CompletionStage object.
+	 */
 	public CompletionStage<Result> index() {
         return tweets.thenApplyAsync(results -> 
             ok(views.html.index.render(request() ,form, asScala(results))), httpExecutionContext.current()
@@ -127,7 +134,10 @@ public class HomeController extends Controller{
     	}
     }
 
-
+	/**
+	 * To make a web socket connection.
+	 * @return A WebSocket object.
+	 */
     public WebSocket ws(){
     	return WebSocket.Json.accept(request -> 
     		ActorFlow.actorRef(UserActor::props, actorSystem, materializer));

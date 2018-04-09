@@ -19,32 +19,35 @@ import java.util.concurrent.CompletionStage;
 
 import lyc.*;
 
-
+/**
+ * This class is used to communicate with actor system, TwitterActor,
+ * handle with the tweets information.
+ */
 public class UserActor extends AbstractActor{
 	private final ActorRef ws;
 	play.Logger.ALogger logger = play.Logger.of(getClass());
 
 	/**
-     * 
-     * @param
-     */
+	 * Constructor
+	 * @param wsOut pass the reference of the UserActor.
+	 */
 	public UserActor(final ActorRef wsOut){
 		this.ws = wsOut;
 	}
 
 	/**
-     * 
-     * @param
-     */
+	 * Props method, to create an ActorRef of UserActor.
+	 * @param wsOut ActorRef
+	 * @return An ActorRef of UserActor
+	 */
 	public static Props props(final ActorRef wsOut){
 		return Props.create(UserActor.class, wsOut);
 	}
 
 
 	/**
-     * Register the userActor into TweetActor
-     * @param
-     */
+	 * Register the UserActor to TwitterActor.
+	 */
 	@Override
 	public void preStart(){
 		context().actorSelection("/user/twitterActor")
@@ -53,9 +56,10 @@ public class UserActor extends AbstractActor{
 
 
 	/**
-     * 
-     * @param
-     */
+	 * The method will be excuted when receive a message.
+	 * Matching the message type and send update message.
+	 * @return A Receive object.
+	 */
 	@Override
 	public Receive createReceive(){
 		return receiveBuilder()
@@ -64,11 +68,11 @@ public class UserActor extends AbstractActor{
 	}
 
 
-
 	/**
-     * 
-     * @param
-     */
+	 * Handle the tweets from message, extract the user information,
+	 * text information and the link of the tweets.
+	 * @param msg The updated tweets information.
+	 */
 	private void sendUpdate(Message.Update msg){
 		CompletableFuture<List<SearchResult>> tweets = msg.getTweets();
 

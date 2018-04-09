@@ -2,12 +2,18 @@ package lyc;
 
 import java.util.HashMap;
 
+/**
+ * The factory class to create a instance of TwiterUserFactory.
+ */
 public class TwitUserFactory {
     private static TwitUserFactory ourInstance = new TwitUserFactory();
     public static TwitUserFactory getInstance() {
         return ourInstance;
     }
 
+    /**
+     * Constructor
+     */
     private TwitUserFactory() {
         cache = new HashMap<>();
     }
