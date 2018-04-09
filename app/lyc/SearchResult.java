@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.Objects;
 
 /**
  * search tweets result
@@ -39,5 +40,19 @@ public class SearchResult {
 		return tweets;
 	}
 
+	@Override
+    public boolean equals(Object other){
+        if(other == this)
+            return true;
+        if( !(other instanceof SearchResult) )
+            return false;
 
+        SearchResult right = (SearchResult) other;
+        return keyword.equals(right.keyword) && tweets.equals(right.tweets);
+    }
+
+	@Override
+    public int hashCode() {
+        return Objects.hash(keyword, tweets);
+    }
 }
