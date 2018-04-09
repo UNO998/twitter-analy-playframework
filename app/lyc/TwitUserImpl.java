@@ -1,12 +1,7 @@
 package lyc;
 
-import java.util.List;
-
-/**
- * This class is a implementation of UserBase.
- */
 public class TwitUserImpl extends UserBase {
-    protected TwitUserImpl(long user_id, String user_name, String user_screenName) {
+    public TwitUserImpl(long user_id, String user_name, String user_screenName) {
         super(user_id, user_name, user_screenName);
 
         user_link = "www.twitter.com/" + user_screenName;

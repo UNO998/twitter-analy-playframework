@@ -21,9 +21,10 @@ public final class Message {
 
     }
 
-    /**
-     * The keyword message is to pass the searching keyword from UserActor to TwitterActor.
-     */
+    public static final class Clear{
+
+    }
+
     public static final class Keyword{
         private String keyword;
 
@@ -86,7 +87,7 @@ public final class Message {
      * This class is to pass a clock message.
      */
     public static final class Tick{
-        
+
     }
 
     /**
