@@ -32,6 +32,10 @@ import actors.TwitterActor;
 import actors.UserActor;
 import actors.Message;
 
+/**
+ * This controller contains the actions to make a websocket connection,
+ * initial actor system, define actors.
+ */
 @Singleton
 public class HomeController extends Controller{
 	@Inject private ActorSystem actorSystem;
@@ -44,8 +48,13 @@ public class HomeController extends Controller{
 	private CompletableFuture<List<SearchResult>> tweets;
 
 	play.Logger.ALogger logger = play.Logger.of(getClass());
-	
 
+
+	/**
+	 * Constructor
+	 * @param formFactory The factory whihch create the controller.
+	 * @param twitterActor The actorRef of TwitterActor.
+	 */
 	@Inject 
 	public HomeController(FormFactory formFactory, @Named("twitterActor") ActorRef twitterActor){
 		//twitterActor = system.actorOf(TwitterActor.getProps(), "TimeActor");
@@ -55,10 +64,13 @@ public class HomeController extends Controller{
 
 		// initialization
 		this.tweets = CompletableFuture.supplyAsync(() -> new ArrayList<SearchResult>());   
-	} 
+	}
 
 
-
+	/**
+	 * An action that render HTML page.
+	 * @return return a CompletionStage object.
+	 */
 	public CompletionStage<Result> index() {
         return tweets.thenApplyAsync(results -> 
             ok(views.html.index.render(request() ,form, asScala(results))), httpExecutionContext.current()
@@ -145,7 +157,7 @@ public class HomeController extends Controller{
     }
 
 	/**
-	 * Response of get request from frontend websocket and create a flow of UserActor
+	 * To make a web socket connection.
 	 *
 	 * @return a flow of UserActor when there is a request
 	 */
