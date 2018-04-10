@@ -22,22 +22,9 @@ import static play.test.Helpers.*;
 
 
 public class HomeControllerTest extends WithApplication {
-    public static class Module extends AbstractModule  implements AkkaGuiceSupport{
-        @Override
-        protected void configure() {
-            bind(AccountFactory.class)
-                    .annotatedWith(Names.named("twitterFactory"))
-                    .to(TwitterAccountFactory.class);
-
-            bindActor(TwitterActor.class, "twitteraActor");
-            //bindActorFactory(UserActor.class, UserActor.Factory.class);
-        }
-
-    }
     @Override
     protected Application provideApplication(){
 
-//        return new GuiceApplicationBuilder().load(new HomeControllerTest.Module()).build();
         return new GuiceApplicationBuilder().build();
     }
 
@@ -45,17 +32,19 @@ public class HomeControllerTest extends WithApplication {
     public void testSearch() {
         Http.RequestBuilder request = Helpers.fakeRequest()
                 .method(GET)
+                .bodyForm(ImmutableMap.of("keyword", "new"))
                 .uri("/widgets");
 
 
         Result result = route(app, request);
 
+        assertEquals(303, result.status());
 
-        assertEquals(OK, result.status());
-//        assertTrue(Helpers.contentAsString(result).contains("Home"));
-//        assertTrue(Helpers.contentAsString(result).contains("clear"));
-        //assertTrue(Helpers.contentAsString(result).contains("Search"));
-
+        Http.RequestBuilder request1 = Helpers.fakeRequest()
+                .method(GET)
+                .uri("/widgets");
+        Result result1 = route(app, request1);
+        assertEquals(303, result.status());
     }
 
     @Test
@@ -81,15 +70,15 @@ public class HomeControllerTest extends WithApplication {
         assertEquals(SEE_OTHER, result.status());
     }
 
-//      @Test
-//    public void testUserProfile() {
-//        TwitUserFactory.getInstance().getOrCreateUser(155150886, "asd", "asdas");
-//        Http.RequestBuilder request = Helpers.fakeRequest()
-//                .method(GET)
-//                .uri("/userProfile/155150886");
-//
-//        Result result = route(app, request);
-//        assertEquals(SEE_OTHER, result.status());
-//    }
+      @Test
+    public void testUserProfile() {
+        TwitUserFactory.getInstance().getOrCreateUser(155150886, "asd", "asdas");
+        Http.RequestBuilder request = Helpers.fakeRequest()
+                .method(GET)
+                .uri("/userProfile/155150886");
+
+        Result result = route(app, request);
+        assertEquals(OK, result.status());
+    }
 
 }

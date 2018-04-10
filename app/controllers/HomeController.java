@@ -157,6 +157,7 @@ public class HomeController extends Controller{
     }
 
 	/**
+	 * Response of get request from frontend websocket and create a flow of UserActor
 	 * To make a web socket connection.
 	 *
 	 * @return a flow of UserActor when there is a request
