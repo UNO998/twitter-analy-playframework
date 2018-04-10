@@ -105,18 +105,4 @@ public class UserActor extends AbstractActor{
 		}).thenAccept( response -> ws.tell(response, self()) );
 	}
 
-
-	/**
-     * The method which convert the jsonNode to String
-     * @param jsonNode The string of jsonNode
-     */
-	private String prettyPrintJsonString(ObjectNode jsonNode) {
-    try {
-        ObjectMapper mapper = new ObjectMapper();
-
-		return mapper.writeValueAsString(jsonNode);
-    } catch (Exception e) {
-        return "Sorry, pretty print didn't work";
-    }
-}
 } 

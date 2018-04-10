@@ -40,6 +40,9 @@ public class UserBaseTest {
         assertEquals("www.google.com", user.getUser_link());
         assertEquals("Hello World", user.getUser_name());
         assertEquals("hello", user.getUser_screenName());
+
+        assertEquals(user, user);
+        assertNotEquals(user, "hello");
     }
 
 
