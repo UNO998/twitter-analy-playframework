@@ -13,7 +13,14 @@ import com.google.inject.name.Names;
 import com.google.inject.Provides;
 import javax.inject.Named;
 
+/**
+ * config the module class
+ */
 public class Module extends AbstractModule {
+
+	/**
+	 * install the class
+	 */
   @Override 
   protected void configure() {
   	bind(ActorSystem.class).toInstance(ActorSystem.apply());
@@ -23,6 +30,12 @@ public class Module extends AbstractModule {
 
   }
 
+	/**
+	 * create the actor for test
+	 * @param system
+	 * @param factory
+	 * @return	actor props
+	 */
    	@Provides @Named("twitterActor")
 	ActorRef serviceActorRef(final ActorSystem system, final @Named("twitterFactory") AccountFactory factory) {
 		final Props props = Props.create(TwitterActor.class, () -> new TwitterActor(factory){

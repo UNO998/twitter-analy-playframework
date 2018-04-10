@@ -40,6 +40,11 @@ public class SearchResult {
 		return tweets;
 	}
 
+	/**
+	 * override equals method
+	 * @param other
+	 * @return
+	 */
 	@Override
     public boolean equals(Object other){
         if(other == this)
@@ -51,6 +56,10 @@ public class SearchResult {
         return keyword.equals(right.keyword) && tweets.equals(right.tweets);
     }
 
+	/**
+	 * override the hashCode method
+	 * @return
+	 */
 	@Override
     public int hashCode() {
         return Objects.hash(keyword, tweets);

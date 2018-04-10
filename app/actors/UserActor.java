@@ -77,7 +77,7 @@ public class UserActor extends AbstractActor{
 	private void sendUpdate(Message.Update msg){
 		CompletableFuture<List<SearchResult>> tweets = msg.getTweets();
 
-		
+
 		tweets.thenApply(newItems -> {
 			ObjectNode response = Json.newObject();
 			ArrayNode arrayNode = response.putArray("updates");
@@ -105,4 +105,4 @@ public class UserActor extends AbstractActor{
 		}).thenAccept( response -> ws.tell(response, self()) );
 	}
 
-} 
+}
