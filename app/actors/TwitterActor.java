@@ -58,11 +58,8 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-<<<<<<< HEAD
 	 *
-=======
 	 * configuration and set timmer
->>>>>>> dev
 	 */
 	@Override
     public void preStart(){
@@ -71,13 +68,10 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-<<<<<<< HEAD
 	 *
 	 * @return
-=======
 	 * get TwitterActor
 	 * @return Create TwitterActor class
->>>>>>> dev
 	 */
 	public static Props getProps(){
 		return Props.create(TwitterActor.class);
