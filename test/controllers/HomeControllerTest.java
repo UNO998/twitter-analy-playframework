@@ -60,16 +60,7 @@ public class HomeControllerTest extends WithApplication {
         assertTrue(Helpers.contentAsString(result).contains("Home"));
         assertTrue(Helpers.contentAsString(result).contains("clear"));
     }
-
-    @Test
-    public void getUserProfileErro() {
-        Http.RequestBuilder request = Helpers.fakeRequest()
-                .method(GET)
-                .uri("/userProfile/12323123123");
-        Result result = route(app, request);
-        assertEquals(OK, result.status());
-
-    }
+    
 
     @Test
     public void testClear() {
