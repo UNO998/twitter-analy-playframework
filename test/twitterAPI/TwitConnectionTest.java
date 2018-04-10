@@ -10,10 +10,17 @@ import java.util.List;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 
+/**
+ * test twitConnection method
+ */
 public class TwitConnectionTest {
 
     private TwitConnection account;
 
+    /**
+     * config the install auths, create the twitter account factory
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         String []auths = new String[]{
@@ -28,11 +35,17 @@ public class TwitConnectionTest {
         account = t_factory.createAccount(auths);
     }
 
+    /**
+     * test the constructor
+     */
     @Test
     public void TestConstructor(){
         assertNotNull(account);
     }
 
+    /**
+     * test getcurrentuser method
+     */
     @Test
     public void TestGetCurrentUser(){
         UserBase user = account.getCurrentUser();
@@ -42,6 +55,9 @@ public class TwitConnectionTest {
         assertEquals(user.getUser_screenName(), "WingCueng_Ray");
     }
 
+    /**
+     * test serchPost method
+     */
     @Test
     public void TestSearchPost(){
         List<Item> results = account.SearchPost("hello", 10);
@@ -57,6 +73,9 @@ public class TwitConnectionTest {
         assertTrue(results.size() > 10);
     }
 
+    /**
+     * test GetSelfHomeLine method
+     */
     @Test
     public void TestGetSelfHomeLine(){
         UserBase currUser = account.getCurrentUser();
@@ -66,6 +85,9 @@ public class TwitConnectionTest {
         assertNotEquals(results.size(), 0);
     }
 
+    /**
+     * test GetHomeLineById method
+     */
     @Test
     public void TestGetHomeLineById(){
         long id = 2965074672L;
@@ -78,6 +100,10 @@ public class TwitConnectionTest {
         }
     }
 
+    /**
+     * end the test case
+     * @throws Exception
+     */
     @After
     public void tearDown() throws Exception {
     }

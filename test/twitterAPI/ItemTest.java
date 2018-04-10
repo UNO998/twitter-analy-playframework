@@ -11,10 +11,17 @@ import java.util.Date;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 
+/**
+ * test Item class
+ */
 public class ItemTest {
 
     private Item item;
 
+    /**
+     * config the class, set install value
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         UserBase user = new TwitUserImpl(111, "test", "test");
@@ -22,6 +29,9 @@ public class ItemTest {
     }
 
 
+    /**
+     * test the get and set method
+     */
     @Test
     public void TestGetterAndSetter(){
         Date now = new Date();

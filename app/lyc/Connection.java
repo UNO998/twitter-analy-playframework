@@ -3,6 +3,9 @@ package lyc;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * interface connnect, define method
+ */
 public interface Connection{
     /**
      * Search the most recent posts by keyword
