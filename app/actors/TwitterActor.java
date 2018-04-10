@@ -68,8 +68,6 @@ public class TwitterActor extends AbstractActorWithTimers{
 
 
 	/**
-	 *
-	 * @return
 	 * get TwitterActor
 	 * @return Create TwitterActor class
 	 */

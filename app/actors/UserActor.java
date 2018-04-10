@@ -77,7 +77,7 @@ public class UserActor extends AbstractActor{
 	private void sendUpdate(Message.Update msg){
 		CompletableFuture<List<SearchResult>> tweets = msg.getTweets();
 
-		
+
 		tweets.thenApply(newItems -> {
 			ObjectNode response = Json.newObject();
 			ArrayNode arrayNode = response.putArray("updates");
@@ -106,7 +106,7 @@ public class UserActor extends AbstractActor{
 	}
 
 
-	/**
+		/**
      * The method which convert the jsonNode to String
      * @param jsonNode The string of jsonNode
      */
@@ -119,4 +119,4 @@ public class UserActor extends AbstractActor{
         return "Sorry, pretty print didn't work";
     }
 }
-} 
+}
