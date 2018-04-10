@@ -142,7 +142,6 @@ public class HomeController extends Controller{
      * @return a future object of the user profile page rendered by userProfile.scala.html or error page if the id doesn't exist.
      */
     public CompletionStage<Result> userProfile(long user_id){
-    	try{
     		CompletableFuture<List<Item>> result = ask(twitterActor, new Message.User_id(user_id), timeout) 
     													.thenApply(object -> (CompletableFuture<List<Item>>) object )
     													.thenApply(future -> future.join())
@@ -151,9 +150,6 @@ public class HomeController extends Controller{
 			return result.thenApplyAsync(userHomeLine -> 
 						ok(views.html.userProfile.render(user, asScala(userHomeLine))), httpExecutionContext.current());
 
-    	} catch (Exception ex){
-    		return CompletableFuture.completedFuture( ok(views.html.error.render("User profile not found")) );
-    	}
     }
 
 	/**
