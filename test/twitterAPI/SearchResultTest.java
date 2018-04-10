@@ -12,13 +12,17 @@ import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * Test SearchResult get method
  */
 public class SearchResultTest {
     private SearchResult searchResult;
+    private SearchResult test;
     private List<Item> list;
+    private List<Item> list2;
 
     /**
      * config the class
@@ -30,8 +34,14 @@ public class SearchResultTest {
         Date date = new Date();
         Item item = new Item(userbase, new String("text"),date);
         list = new ArrayList<>();
+        list2 = new ArrayList<>();
         list.add(item);
+        list2.add(item);
+        list2.add(new Item(userbase, new String("text2"),date));
+
         searchResult = new SearchResult("today", list);
+
+         test = new SearchResult("today", list2);
     }
 
     /**
@@ -40,6 +50,11 @@ public class SearchResultTest {
     @Test
     public void TestgetKeyword(){
         assertEquals("today" ,  searchResult.getKeyword());
+        assertTrue(searchResult.equals(searchResult));
+        assertFalse(searchResult.equals("1"));
+        assertFalse(searchResult.equals(test));
+
+
     }
 
     /**

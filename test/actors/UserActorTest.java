@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.testkit.javadsl.TestKit;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lyc.Item;
 import lyc.SearchResult;
 import lyc.TwitUserImpl;
@@ -36,6 +37,7 @@ public class UserActorTest {
         tweets = new Message.Update(CompletableFuture.supplyAsync(() -> resultTest));
     }
 
+
     /**
      * shut down actor system
      */
@@ -44,6 +46,7 @@ public class UserActorTest {
         TestKit.shutdownActorSystem(system);
         system = null;
     }
+
 
     /**
      * testing the function of user actor

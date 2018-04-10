@@ -4,6 +4,7 @@ import lyc.TwitUserImpl;
 import org.junit.Before;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 
 /**
  * Test twitUserImpl method
@@ -26,6 +27,7 @@ public class TwitUserImplTest {
     @Test
     public void TestEqual(){
         TwitUserImpl test = new TwitUserImpl((long)1, "tester", "tester");
+        assertFalse(test.equals("1"));
         assertEquals(true, twitUser.equals(test));
     }
 }
