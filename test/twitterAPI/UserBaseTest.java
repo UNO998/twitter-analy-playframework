@@ -43,6 +43,7 @@ public class UserBaseTest {
         assertEquals("Hello World", user.getUser_name());
         assertEquals("hello", user.getUser_screenName());
 
+
         UserBase test = new TwitUserImpl(111, "test", "test");
         test.setUser_id(12345);
         test.setUser_link("www.google.com");
@@ -50,6 +51,10 @@ public class UserBaseTest {
         test.setUser_screenName("hello");
         assertTrue(user.equals(test));
         assertFalse(user.equals("1"));
+
+        assertEquals(user, user);
+        assertNotEquals(user, "hello");
+
     }
 
 
