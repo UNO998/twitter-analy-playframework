@@ -106,7 +106,7 @@ public class UserActor extends AbstractActor{
 	}
 
 
-		/**
+	/**
      * The method which convert the jsonNode to String
      * @param jsonNode The string of jsonNode
      */

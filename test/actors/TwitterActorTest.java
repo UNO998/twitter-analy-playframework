@@ -35,6 +35,9 @@ import com.google.inject.name.Names;
 
 import java.io.PrintWriter;
 
+/**
+ * twitter actor test
+ */
 public class TwitterActorTest{
 
 	private ActorSystem system;
@@ -46,6 +49,9 @@ public class TwitterActorTest{
     Item item1;
     Item item2;
 
+	/**
+	 * config install value
+	 */
 	public TwitterActorTest(){
 		user1 = TwitUserFactory.getInstance().getOrCreateUser(123, "mock_user", "mock_user");
 		item1 = new Item(user1, "hello world 1", date);
@@ -58,7 +64,9 @@ public class TwitterActorTest{
     	}
 	}
 
-
+	/**
+	 * install the class
+	 */
 	@Before
 	public void setup(){
 		system = ActorSystem.create();
@@ -66,6 +74,9 @@ public class TwitterActorTest{
 		
 	}
 
+	/**
+	 * end the test
+	 */
 	@After
 	public void teardown(){
 		writer.close();
@@ -73,7 +84,9 @@ public class TwitterActorTest{
 		system = null;
 	}
 
-
+	/**
+	 * dependency inject the relate class
+	 */
 	@Test 
 	public void testDependencyInjection(){
 		// Use Dependency Injection to create TwitterActor (ActorRef)
