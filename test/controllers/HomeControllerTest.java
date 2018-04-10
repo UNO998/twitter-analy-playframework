@@ -45,13 +45,14 @@ public class HomeControllerTest extends WithApplication {
     public void testSearch() {
         Http.RequestBuilder request = Helpers.fakeRequest()
                 .method(GET)
+                .bodyForm(ImmutableMap.of("keyword", "new"))
                 .uri("/widgets");
 
 
         Result result = route(app, request);
 
 
-        assertEquals(OK, result.status());
+        assertEquals(303, result.status());
 //        assertTrue(Helpers.contentAsString(result).contains("Home"));
 //        assertTrue(Helpers.contentAsString(result).contains("clear"));
         //assertTrue(Helpers.contentAsString(result).contains("Search"));
