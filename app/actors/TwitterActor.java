@@ -47,13 +47,14 @@ public class TwitterActor extends AbstractActorWithTimers{
 		history = new HashMap<>();
 
 		String []auths = new String[]{
-                "WUZeAUiJyJFySY2I5C7oTkaRB",
-                "QcmbvjQrSxLscxtZP6PndCYVEXxgBOoZ5g8ryvJLBYAmDTtrPx",
-                "2965074672-HcndnMSZkdDKNqF1vqoERR1nynKLnKKqhMovkw4",
-                "mue5UQ1QWSwGWDgf1lDTnrSeLJFVJLZltQxdyL34u0C0a"
-        };
+				"M0YLKTvUOn94ppgkndCtNOzg8",
+				"SLyd4eDSj7gQf9go2VVzTU1WQ8fxD78nngbDeUGF1z3h74Feak",
+				"4035781342-sTvTau17c3v358hkPhMkFymA7EPjHL5GNgUfFFK",
+				"riwyeob5JPgJDkxFqF7m8Ec7DFEq6aIDYkdzOMLswBkh1"
+		};
 
-        this.twitter = CompletableFuture.supplyAsync( () -> factory.createAccount(auths) );
+
+		this.twitter = CompletableFuture.supplyAsync( () -> factory.createAccount(auths) );
 	}
 
 

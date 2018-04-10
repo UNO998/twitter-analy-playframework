@@ -22,12 +22,18 @@ import static play.test.Helpers.*;
 
 
 public class HomeControllerTest extends WithApplication {
+    /**
+     * create an application
+     */
     @Override
     protected Application provideApplication(){
 
         return new GuiceApplicationBuilder().build();
     }
 
+    /**
+     * create the search method in homecontroller
+     */
     @Test
     public void testSearch() {
         Http.RequestBuilder request = Helpers.fakeRequest()
@@ -47,6 +53,9 @@ public class HomeControllerTest extends WithApplication {
         assertEquals(303, result.status());
     }
 
+    /**
+     * test index method in HomeController
+     */
     @Test
     public void testIndex() {
         Http.RequestBuilder request = Helpers.fakeRequest()
@@ -60,7 +69,11 @@ public class HomeControllerTest extends WithApplication {
         assertTrue(Helpers.contentAsString(result).contains("Home"));
         assertTrue(Helpers.contentAsString(result).contains("clear"));
     }
+    
 
+    /**
+     * Test clear method of HomeController
+     */
     @Test
     public void testClear() {
         Http.RequestBuilder request = Helpers.fakeRequest()
@@ -70,6 +83,9 @@ public class HomeControllerTest extends WithApplication {
         assertEquals(SEE_OTHER, result.status());
     }
 
+    /**
+     * Test getUserProfile of HomeController
+     */
       @Test
     public void testUserProfile() {
         TwitUserFactory.getInstance().getOrCreateUser(155150886, "asd", "asdas");

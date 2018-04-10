@@ -1,5 +1,6 @@
 package lyc;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Test;
 import java.util.List;
 import static org.junit.Assert.*;
@@ -26,12 +27,21 @@ public class TwitterAccountFactoryTest {
                 "789",
                 "890"
         };
+        String []invalid_authswith3items = new String[]{
+                "123",
+                "4556",
+                "789"
+
+        };
+
+
 
 
         TwitterAccountFactory t_factory = new TwitterAccountFactory();
         Connection valid_account = t_factory.createAccount(valid_auths);
         Connection invalid_account = t_factory.createAccount(invalid_auths);
-
+        Connection invalid_account2 = t_factory.createAccount(invalid_authswith3items);
+        assertNull(invalid_account2);
         assertNotNull(valid_account);
         assertNull(invalid_account);
     }
