@@ -6,8 +6,14 @@ import com.google.inject.name.Names;
 import lyc.AccountFactory;
 import lyc.TwitterAccountFactory;
 
+/**
+ * This class extends from AkkaGuiceSupport.
+ */
 @SuppressWarnings("unused")
 public class Module extends AbstractModule implements AkkaGuiceSupport {
+	/**
+	 * Override the configuration to combine witch the configuration for Twitter.
+	 */
     @Override
     protected void configure() {
     	bind(AccountFactory.class)

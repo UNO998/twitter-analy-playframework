@@ -5,7 +5,16 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
+/**
+ * This class is a implementation of AccountFactory based on TwitterAccount.
+ */
 public class TwitterAccountFactory implements AccountFactory {
+    /**
+     * Create the twitter account for connection.
+     * @param auths The authentication message for this account
+     * @return A valid TwitConnection object.
+     * @exception TwitterException Catch the exception if verify failed.
+     */
     @Override
     public TwitConnection createAccount(String []auths) {
         if(auths.length != 4)
