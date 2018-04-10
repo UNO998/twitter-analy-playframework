@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 public class ItemTest {
 
     private Item item;
+    private Item item2;
 
     /**
      * config the class, set install value
@@ -25,7 +26,10 @@ public class ItemTest {
     @Before
     public void setUp() throws Exception {
         UserBase user = new TwitUserImpl(111, "test", "test");
+
         item = new Item(user, "test", new Date());
+        item2 = new Item(user, "test", new Date());
+
     }
 
 
@@ -42,6 +46,9 @@ public class ItemTest {
         assertEquals("this is a test.", item.getText());
         assertEquals(now, item.getCreated_time());
         assertEquals("www.twitter.com/test", item.getUser_link());
+        assertFalse(item.equals("1"));
+        assertFalse(item.equals(item2));
+
 
     }
 

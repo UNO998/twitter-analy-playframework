@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 
@@ -41,9 +43,20 @@ public class UserBaseTest {
         assertEquals("Hello World", user.getUser_name());
         assertEquals("hello", user.getUser_screenName());
 
+
+        UserBase test = new TwitUserImpl(111, "test", "test");
+        test.setUser_id(12345);
+        test.setUser_link("www.google.com");
+        test.setUser_name("Hello World");
+        test.setUser_screenName("hello");
+        assertTrue(user.equals(test));
+        assertFalse(user.equals("1"));
+
         assertEquals(user, user);
         assertNotEquals(user, "hello");
+
     }
+
 
 
 }
