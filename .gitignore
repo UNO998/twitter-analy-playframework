@@ -16,7 +16,6 @@ gradle-app.setting
 ### PlayFramework template
 # Ignore Play! working directory #
 
-logs/*
 modules
 project/project
 project/target

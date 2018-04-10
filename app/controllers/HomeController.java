@@ -81,10 +81,10 @@ public class HomeController extends Controller{
 
 
     /**
-     * Reponse of 'Post /search' request.
+     * Response of 'Post /search' request.
      * This method will get the data of the input box and search tweets according to the keyword asynchronously
      *
-     * @return a future oject of the main page. In other word, it call the index() method agian.
+     * @return a future object of the main page. In other word, it call the index() method again.
      */
     public CompletionStage<Result> search() {
         final Form<WidgetData> boundForm = form.bindFromRequest();
@@ -122,10 +122,9 @@ public class HomeController extends Controller{
 
 
     /**
-     * 
+     * Refresh the page and clear the keyword.
      *
-     * @param 
-     * @return 
+     * @return redirect to the main page.
      */
     public CompletionStage<Result> clear() {
         	tweets = CompletableFuture.supplyAsync(() -> new ArrayList<SearchResult>());
@@ -137,9 +136,9 @@ public class HomeController extends Controller{
 
 
     /**
-     * Reponse of `Get /userProfile/:id' request. It will send a Message.User_id to twitter actor to get the user's homeline.
+     * Response of `Get /userProfile/:id' request. It will send a Message.User_id to twitter actor to get the user's homeline.
      *
-     * @param user_id - the uesr's id
+     * @param user_id - the user's id
      * @return a future object of the user profile page rendered by userProfile.scala.html or error page if the id doesn't exist.
      */
     public CompletionStage<Result> userProfile(long user_id){
@@ -159,7 +158,8 @@ public class HomeController extends Controller{
 
 	/**
 	 * To make a web socket connection.
-	 * @return A WebSocket object.
+	 *
+	 * @return a flow of UserActor when there is a request
 	 */
     public WebSocket ws(){
     	return WebSocket.Json.accept(request -> 

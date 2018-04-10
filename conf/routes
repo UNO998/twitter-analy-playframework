@@ -5,8 +5,8 @@
 # Home page
 GET     /                           controllers.HomeController.index
 GET		/clear						controllers.HomeController.clear
-POST	/widgets 					controllers.HomeController.search
-GET		/ws			controllers.HomeController.ws
+GET	/widgets 					controllers.HomeController.search
+GET		/ws			                controllers.HomeController.ws
 GET     /userProfile/:userId        controllers.HomeController.userProfile(userId: Long)
 
 

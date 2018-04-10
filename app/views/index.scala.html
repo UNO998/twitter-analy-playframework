@@ -16,15 +16,14 @@
     <body data-ws-url="@routes.HomeController.ws.webSocketURL(request)">
         @helper.form(routes.HomeController.search) {
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="@routes.HomeController.clear()">Home</a>
+                <a class="navbar-brand" href="">Home</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Refresh <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href=@routes.HomeController.clear()>Clear <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
@@ -43,8 +42,6 @@
 
         <div id="tweets" class="list-group">
             @for(each <- tweets) {
-                @*<div id="@each.getKeyword()">*@
-                    @*<h2>Keyword: @each.getKeyword() </h2>*@
                     @for(w <- each.getTweets()) {
                         <div  class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
