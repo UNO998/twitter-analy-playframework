@@ -1,4 +1,4 @@
-target/
+target/*
 ### Gradle template
 .gradle
 
@@ -16,12 +16,10 @@ gradle-app.setting
 ### PlayFramework template
 # Ignore Play! working directory #
 
-
-logs/
 modules
 project/project
 project/target
 target
 
-.idea/
-.vscode/
+.idea/*
+.setting/*

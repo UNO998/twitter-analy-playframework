@@ -14,13 +14,24 @@ public class WidgetData {
     @Constraints.Required
     private String keyword;
 
+    /**
+     * constructor
+     */
     public WidgetData() {
     }
 
+    /**
+     * get key word
+     * @return key word
+     */
     public String getKeyword() {
         return keyword;
     }
 
+    /**
+     * set key word
+     * @param keyword
+     */
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }

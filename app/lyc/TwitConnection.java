@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * connect twitter search time homeline
+ */
 public class TwitConnection implements Connection {
     private Twitter twitter;
     private UserBase user;
@@ -19,6 +22,10 @@ public class TwitConnection implements Connection {
         twitter = t;
     }
 
+    /**
+     * configuration and get current user information
+     * @return user information
+     */
     @Override
     public UserBase getCurrentUser(){
         if(user != null)
@@ -36,6 +43,12 @@ public class TwitConnection implements Connection {
         }
     }
 
+    /**
+     * Search the most recent posts by keyword
+     * @param keyword the keyword that you use to search posts
+     * @param max_cnt maximum number of posts returned
+     * @return
+     */
     @Override
     public List<Item> SearchPost(String keyword, int max_cnt) {
         final int finalMax_cnt;
@@ -63,6 +76,11 @@ public class TwitConnection implements Connection {
         return results;
     }
 
+    /**
+     * config and search tweets
+     * @return homeline list
+     * @exception TwitterException
+     */
     @Override
     public List<Item> getSelfHomeLine() {
         ArrayList<Item> results = new ArrayList<>();
@@ -83,11 +101,21 @@ public class TwitConnection implements Connection {
         return results;
     }
 
+    /**
+     * find search tweets list
+     * @param keyword the keyword that you use to search posts
+     * @return
+     */
     @Override
     public List<Item> SearchPost(String keyword) {
         return SearchPost(keyword, -1);
     }
 
+    /**
+     * use user id to search twitter homeline
+     * @param user_id
+     * @return home line list
+     */
     @Override
     public List<Item> getHomeLineById(long user_id) {
         ArrayList<Item> results = new ArrayList<>();

@@ -6,14 +6,24 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * test twitUserFactory class
+ */
 public class TwitUserFactoryTest {
     private TwitUserFactory u_factory;
+
+    /**
+     * config the parameter
+     */
     @Before
     public void setUp() {
         u_factory = TwitUserFactory.getInstance();
         assertNotNull(u_factory);
     }
 
+    /**
+     * test singleton
+     */
     @Test
     public void TestSingleton(){
         TwitUserFactory f1 = TwitUserFactory.getInstance();
@@ -21,7 +31,9 @@ public class TwitUserFactoryTest {
         assertEquals(f1, f2);
     }
 
-
+    /**
+     * test GetOrCreateUser method
+     */
     @Test
     public void TestGetOrCreateUser(){
         UserBase u1 = u_factory.getOrCreateUser(123, "hello123", "hello123");
@@ -37,6 +49,9 @@ public class TwitUserFactoryTest {
         assertEquals(u7, u77);
     }
 
+    /**
+     * test GetUserById method
+     */
     @Test
     public void TestGetUserById(){
         UserBase u1 = u_factory.getOrCreateUser(123, "hello123", "hello123");
