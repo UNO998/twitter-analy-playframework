@@ -51,7 +51,12 @@ public class HomeControllerTest extends WithApplication {
 
         Result result = route(app, request);
 
+        assertEquals(303, result.status());
 
+        Http.RequestBuilder request1 = Helpers.fakeRequest()
+                .method(GET)
+                .uri("/widgets");
+        Result result1 = route(app, request1);
         assertEquals(303, result.status());
 //        assertTrue(Helpers.contentAsString(result).contains("Home"));
 //        assertTrue(Helpers.contentAsString(result).contains("clear"));
